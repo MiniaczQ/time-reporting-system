@@ -1,0 +1,16 @@
+﻿<div class="text-center">
+    <h1 class="display-4">Identify yourself.</h1>
+    <form method="post">
+        <select name="user" asp-items="Model.Options"></select>
+        <input type="submit" name="type" value="Log in">
+    </form>
+    <form method="post">
+        <input type="text" name="user">
+        <input type="submit" name="type" value="New user">
+    </form>
+    @{
+        if (Model.invalid) {
+            <p>User already exists.</p>
+        }
+    }
+</div>
