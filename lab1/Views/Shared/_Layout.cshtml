@@ -26,6 +26,15 @@
                         </li>
                     </ul>
                 </div>
+                @{
+                    var user = Context.Request.Cookies["user"];
+                    if (user == null) {
+                        <button onclick="window.location.href = './UserSelect';">Log in</button>
+                    }
+                    else {
+                        <input type="button" value="Logout" onclick="window.location.href = './Logout';">
+                    }
+                }
             </div>
         </nav>
     </header>
