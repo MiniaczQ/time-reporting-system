@@ -22,9 +22,9 @@ namespace lab1.Entities
 
     public class Report
     {
-        public bool frozen;
-        public List<Entry> entries;
-        public List<AcceptedEntry> acceptedEntries;
+        public bool frozen = false;
+        public List<Entry> entries = new ();
+        public List<AcceptedEntry> acceptedEntries = new ();
 
         public static Report load(String user, DateTime date)
         {
