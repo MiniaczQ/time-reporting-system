@@ -28,7 +28,6 @@ namespace lab1.Controllers
         {
             var cookie_options = new CookieOptions { HttpOnly = true, Secure = false, Expires = DateTime.UnixEpoch };
             Response.Cookies.Append("user", "", cookie_options);
-            System.Console.WriteLine("AAAAA");
             return Redirect("./UserSelect");
         }
 
