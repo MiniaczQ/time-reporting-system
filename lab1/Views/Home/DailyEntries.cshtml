@@ -13,19 +13,38 @@
             <th style="width: 40%">Description</th>
             <th style="width: 10%">Options</th>
         </tr>
+        @{int i = 0;}
         @foreach (var entry in Model.Entries) {
+            i++;
+            var date = entry.date.ToShortDateString();
             <tr>
-                <td>@entry.date.ToShortDateString()</td>
+                <td>@date</td>
                 <td>@entry.code</td>
                 <td>@entry.subcode</td>
                 <td>@entry.time</td>
                 <td>@entry.description</td>
-                <td>
-                    <p style="font-size: 0">
-                    <button style="display: inline-block; border: none; background-color: transparent"><i class="material-icons">info</i></button>
-                    <button style="display: inline-block; border: none; background-color: transparent"><i class="material-icons">settings</i></button>
-                    <button style="display: inline-block; border: none; background-color: transparent"><i class="material-icons">delete</i></button>
-                    </p>
+                <td style="font-size: 0">
+                    <form action=@Url.Action("EntryInfo", "Home")>
+                        <input name="date" value=@date hidden>
+                        <input name="index" value=@i hidden>
+                        <button type="submit" style="display: inline-block; border: none; background-color: transparent">
+                            <i class="material-icons">info</i>
+                        </button>
+                    </form>
+                    <form action=@Url.Action("ModifyEntry", "Home")>
+                        <input name="date" value=@date hidden>
+                        <input name="index" value=@i hidden>
+                        <button style="display: inline-block; border: none; background-color: transparent">
+                        <i class="material-icons">settings</i>
+                    </button>
+                    </form>
+                    <form method="post" action=@Url.Action("DeleteEntry", "Home")>
+                        <input name="date" value=@date hidden>
+                        <input name="index" value=@i hidden>
+                        <button style="display: inline-block; border: none; background-color: transparent">
+                        <i class="material-icons">delete</i>
+                    </button>
+                    </form>
                 </td>
             </tr>
         }

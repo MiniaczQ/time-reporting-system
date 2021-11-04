@@ -78,6 +78,23 @@ namespace lab1.Controllers
             return View(new AddEntryModel());
         }
 
+        public IActionResult ModifyEntry()
+        {
+            return View(new AddEntryModel());
+        }
+
+        [HttpPost]
+        public IActionResult DeleteEntry(DateTime date, int index)
+        {
+            
+            return Redirect("/");
+        }
+
+        public IActionResult EntryInfo()
+        {
+            return View(new AddEntryModel());
+        }
+
         [HttpPost]
         public IActionResult AddEntry(DateTime date, String code, String subcode, int time, String description)
         {
