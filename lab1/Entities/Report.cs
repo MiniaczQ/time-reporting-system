@@ -35,6 +35,39 @@ namespace lab1.Entities
             }
             return entries;
         }
+        public static Tuple<int, String> Locate(DateTime date, int index)
+        {
+            var i = 0;
+            var u = "";
+            var users = Entities.Users.load();
+            foreach (var user in users)
+            {
+                var report = Entities.Report.load(user, date);
+                var j = 0;
+                foreach (var entry in report.entries)
+                {
+                    if (entry.date.Date.CompareTo(date) == 0)
+                    {
+                        i++;
+                    }
+                    if (i == index)
+                    {
+                        i = j;
+                        u = user;
+                        return Tuple.Create(i, u);
+                    }
+                    j++;
+                }
+            }
+            return null;
+        }
+
+        public static void Remove(int index, String user, DateTime date)
+        {
+            var report = Entities.Report.load(user, date);
+            report.entries.RemoveAt(index);
+            Entities.Report.save(report, user, date);
+        }
     }
 
     public class AcceptedEntry

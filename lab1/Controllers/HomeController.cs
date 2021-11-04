@@ -86,8 +86,9 @@ namespace lab1.Controllers
         [HttpPost]
         public IActionResult DeleteEntry(DateTime date, int index)
         {
-            
-            return Redirect("/");
+            var result = Entities.Entry.Locate(date, index);
+            Entities.Entry.Remove(result.Item1, result.Item2, date);
+            return Redirect($"./DailyEntries?date={date.Year}-{date.Month}-{date.Day}");
         }
 
         public IActionResult EntryInfo()
