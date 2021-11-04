@@ -1,0 +1,27 @@
+{
+  "frozen": false,
+  "entries": [
+    {
+      "date": "2021-11-02",
+      "code": "Czerwony",
+      "subcode": "",
+      "time": 60,
+      "description": "Czerwień"
+    },
+    {
+      "date": "2021-11-03",
+      "code": "Zielony",
+      "subcode": "2",
+      "time": 80,
+      "description": "Zieleń"
+    },
+    {
+      "date": "2021-11-04",
+      "code": "Żółty",
+      "subcode": "1",
+      "time": 120,
+      "description": "Żółć"
+    }
+  ],
+  "acceptedEntries": []
+}

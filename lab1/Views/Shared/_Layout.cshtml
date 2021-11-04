@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - lab1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
     <header>
@@ -28,12 +29,14 @@
                 </div>
                 @{
                     var user = Context.Request.Cookies["user"];
-                    if (user == null) {
+                    <p>@user
+                    @if (user == null) {
                         <button onclick="window.location.href = './UserSelect';">Log in</button>
                     }
                     else {
                         <input type="button" value="Logout" onclick="window.location.href = './Logout';">
                     }
+                    </p>
                 }
             </div>
         </nav>

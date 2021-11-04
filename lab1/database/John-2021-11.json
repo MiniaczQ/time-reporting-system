@@ -1,0 +1,34 @@
+{
+  "frozen": false,
+  "entries": [
+    {
+      "date": "2021-11-04T00:00:00",
+      "code": "Czerwony",
+      "subcode": "1",
+      "time": 120,
+      "description": "Czerwie\u0144"
+    },
+    {
+      "date": "2021-11-03T00:00:00",
+      "code": "Zielony",
+      "subcode": "2",
+      "time": 80,
+      "description": "Ziele\u0144"
+    },
+    {
+      "date": "2021-11-02T00:00:00",
+      "code": "\u017B\u00F3\u0142ty",
+      "subcode": "",
+      "time": 60,
+      "description": "\u017B\u00F3\u0142\u0107"
+    },
+    {
+      "date": "2021-11-03T00:00:00",
+      "code": "Zielony",
+      "subcode": "2",
+      "time": 60,
+      "description": "Dobre pomara\u0144czowe"
+    }
+  ],
+  "acceptedEntries": []
+}

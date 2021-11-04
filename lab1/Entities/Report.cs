@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -7,24 +8,32 @@ namespace lab1.Entities
 {
     public class Entry
     {
-        public String date;
-        public String code;
-        public String subcode;
-        public int time;
-        public String description;
+        public Entry(DateTime date, String code, String subcode, int time, String description)
+        {
+            this.date = date;
+            this.code = code;
+            this.subcode = subcode;
+            this.time = time;
+            this.description = description;
+        }
+        public DateTime date {get; set;}
+        public String code {get; set;}
+        public String subcode {get; set;}
+        public int time {get; set;}
+        public String description {get; set;}
     }
 
     public class AcceptedEntry
     {
-        public String code;
-        public int time;
+        public String code {get; set;}
+        public int time {get; set;}
     }
 
     public class Report
     {
-        public bool frozen = false;
-        public List<Entry> entries = new ();
-        public List<AcceptedEntry> acceptedEntries = new ();
+        public bool frozen {get; set;} = false;
+        public List<Entry> entries {get; set;} = new ();
+        public List<AcceptedEntry> acceptedEntries {get; set;} = new ();
 
         public static Report load(String user, DateTime date)
         {

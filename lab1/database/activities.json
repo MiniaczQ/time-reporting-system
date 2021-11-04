@@ -1,0 +1,40 @@
+{
+    "activities": [
+        {
+            "code": "Czerwony",
+            "manager": "John",
+            "name": "Projekt czerwony",
+            "budget": 512,
+            "active": true,
+            "subactivities": [
+                {"code":"1"},
+                {"code":"2"},
+                {"code":"tajne zadanie czerwone"}
+            ]
+        },
+        {
+            "code": "Zielony",
+            "manager": "Mark",
+            "name": "Projekt zielony",
+            "budget": 1024,
+            "active": true,
+            "subactivities": [
+                {"code":"1"},
+                {"code":"2"},
+                {"code":"tajne zadanie zielone"}
+            ]
+        },
+        {
+            "code": "Żółty",
+            "manager": "John",
+            "name": "Projekt żółty",
+            "budget": 2048,
+            "active": true,
+            "subactivities": [
+                {"code":"1"},
+                {"code":"2"},
+                {"code":"tajne zadanie żółte"}
+            ]
+        }
+    ]
+}
