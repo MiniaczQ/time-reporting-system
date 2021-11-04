@@ -78,9 +78,26 @@ namespace lab1.Controllers
             return View(new AddEntryModel());
         }
 
-        public IActionResult ModifyEntry()
+        public IActionResult ModifyEntry(DateTime date, int index)
         {
-            return View();
+            var model = new ModifyEntryModel(date, index);
+            System.Console.WriteLine($"dsdsdsd {model.index}");
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ModifyEntry(DateTime date, String subcode, int time, String description, String user, int index)
+        {
+            System.Console.WriteLine(index);
+            var report = Entities.Report.load(user, date);
+            var entry = report.entries[index];
+            report.entries.RemoveAt(index);
+            report.entries.Add(entry);
+            entry.time = time;
+            entry.subcode = subcode;
+            entry.description = description;
+            Entities.Report.save(report, user, date);
+            return Redirect("./DailyEntries");
         }
 
         [HttpPost]

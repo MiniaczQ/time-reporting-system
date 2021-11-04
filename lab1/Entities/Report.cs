@@ -16,6 +16,7 @@ namespace lab1.Entities
             this.time = time;
             this.description = description;
         }
+        [DataType(DataType.Date)]
         public DateTime date {get; set;}
         public String code {get; set;}
         public String subcode {get; set;}
@@ -49,6 +50,7 @@ namespace lab1.Entities
                     {
                         i++;
                     }
+                    System.Console.WriteLine($"a {i} {j}");
                     if (i == index)
                     {
                         return Tuple.Create(user, j, entry);

@@ -1,5 +1,20 @@
 {
   "frozen": false,
-  "entries": [],
+  "entries": [
+    {
+      "date": "2021-11-04T00:00:00",
+      "code": "Czerwony",
+      "subcode": "1",
+      "time": 1234,
+      "description": null
+    },
+    {
+      "date": "2021-11-04T00:00:00",
+      "code": "Czerwony",
+      "subcode": "1",
+      "time": 6,
+      "description": null
+    }
+  ],
   "acceptedEntries": []
 }
