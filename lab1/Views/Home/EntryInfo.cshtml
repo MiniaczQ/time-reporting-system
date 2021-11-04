@@ -1,2 +1,37 @@
 ﻿<div class="text-center">
+    <table>
+        <tr>
+            <td>Project name</td>
+            <td>@Model.activity.name</td>
+        </tr>
+        <tr>
+            <td>Project code</td>
+            <td>@Model.entry.code</td>
+        </tr>
+        <tr>
+            <td>Project subcode</td>
+            <td>@Model.entry.subcode</td>
+        </tr>
+        <tr>
+            <td>Project manager</td>
+            <td>@Model.activity.manager</td>
+        </tr>
+        <tr>
+            <td>Planned for</td>
+            <td>@Model.entry.date.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Expected time in minutes</td>
+            <td>@Model.entry.time</td>
+        </tr>
+        <tr>
+            <td>Person in charge</td>
+            <td>@Model.user</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>@Model.entry.description</td>
+        </tr>
+    </table>
+    <input type="button" value="Go back" onclick="history.back()">
 </div>

@@ -80,7 +80,7 @@ namespace lab1.Controllers
 
         public IActionResult ModifyEntry()
         {
-            return View(new AddEntryModel());
+            return View();
         }
 
         [HttpPost]
@@ -91,9 +91,9 @@ namespace lab1.Controllers
             return Redirect($"./DailyEntries?date={date.Year}-{date.Month}-{date.Day}");
         }
 
-        public IActionResult EntryInfo()
+        public IActionResult EntryInfo(DateTime date, int index)
         {
-            return View(new AddEntryModel());
+            return View(new EntryInfoModel(date, index));
         }
 
         [HttpPost]

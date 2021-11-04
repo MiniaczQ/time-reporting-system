@@ -35,10 +35,9 @@ namespace lab1.Entities
             }
             return entries;
         }
-        public static Tuple<int, String> Locate(DateTime date, int index)
-        {
+
+        public static Tuple<String, int, Entry> getOneAt(DateTime date, int index) {
             var i = 0;
-            var u = "";
             var users = Entities.Users.load();
             foreach (var user in users)
             {
@@ -52,9 +51,30 @@ namespace lab1.Entities
                     }
                     if (i == index)
                     {
-                        i = j;
-                        u = user;
-                        return Tuple.Create(i, u);
+                        return Tuple.Create(user, j, entry);
+                    }
+                    j++;
+                }
+            }
+            return null;
+        }
+        public static Tuple<int, String> Locate(DateTime date, int index)
+        {
+            var i = 0;
+            var users = Entities.Users.load();
+            foreach (var user in users)
+            {
+                var report = Entities.Report.load(user, date);
+                var j = 0;
+                foreach (var entry in report.entries)
+                {
+                    if (entry.date.Date.CompareTo(date) == 0)
+                    {
+                        i++;
+                    }
+                    if (i == index)
+                    {
+                        return Tuple.Create(j, user);
                     }
                     j++;
                 }

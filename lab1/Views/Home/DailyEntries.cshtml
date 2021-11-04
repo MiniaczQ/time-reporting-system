@@ -6,12 +6,10 @@
     </form>
     <table style="width: 100%">
         <tr>
-            <th style="width: 20%">Date</th>
-            <th style="width: 10%">Project</th>
-            <th style="width: 10%">Sub-project</th>
-            <th style="width: 10%">Time [min]</th>
-            <th style="width: 40%">Description</th>
-            <th style="width: 10%">Options</th>
+            <th style="width: 40%">Date</th>
+            <th style="width: 20%">Project</th>
+            <th style="width: 20%">Time [min]</th>
+            <th style="width: 20%">Options</th>
         </tr>
         @{int i = 0;}
         @foreach (var entry in Model.Entries) {
@@ -20,9 +18,7 @@
             <tr>
                 <td>@date</td>
                 <td>@entry.code</td>
-                <td>@entry.subcode</td>
                 <td>@entry.time</td>
-                <td>@entry.description</td>
                 <td style="font-size: 0">
                     <form action=@Url.Action("EntryInfo", "Home")>
                         <input name="date" value=@date hidden>
