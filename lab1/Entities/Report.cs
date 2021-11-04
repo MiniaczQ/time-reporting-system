@@ -21,6 +21,20 @@ namespace lab1.Entities
         public String subcode {get; set;}
         public int time {get; set;}
         public String description {get; set;}
+
+        public static List<Entry> getAllAt(DateTime date) {
+            List<Entry> entries = new ();
+            var users = Users.load();
+            foreach (var user in users) {
+                var report = Report.load(user, date);
+                foreach (var entry in report.entries) {
+                    if (entry.date.Date.CompareTo(date) == 0) {
+                        entries.Add(entry);
+                    }
+                }
+            }
+            return entries;
+        }
     }
 
     public class AcceptedEntry

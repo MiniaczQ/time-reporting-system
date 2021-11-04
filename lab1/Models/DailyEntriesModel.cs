@@ -12,16 +12,11 @@ namespace lab1.Models
 
         public DailyEntriesModel(DateTime date) {
             this.SelectedDate = date.ToLongDateString();
-            var users = Users.load();
-            foreach (var user in users) {
-                var report = Report.load(user, date);
-                foreach (var entry in report.entries) {
-                    if (entry.date.Date.CompareTo(date) == 0) {
-                        this.Entries.Add(entry);
-                        this.TotalTime += entry.time;
-                    }
-                }
-            }
+            this.Entries = Entities.Entry.getAllAt(date);
+            this.Entries.ForEach(e =>
+            {
+                this.TotalTime += e.time;
+            });
         }
 
         public String SelectedDate;
