@@ -59,13 +59,6 @@ namespace lab1.Models
             if (entries != null && entries.Count > 0)
             {
                 int budget = 0;
-                report.acceptedEntries.ForEach(e =>
-                {
-                    System.Console.WriteLine(code);
-                    System.Console.WriteLine(e.code);
-                    System.Console.WriteLine(e.time);
-                    System.Console.WriteLine();
-                });
                 var acceptedEntry = report.acceptedEntries.Find(entry => entry.code.Equals(code));
                 if (acceptedEntry != null)
                 {
