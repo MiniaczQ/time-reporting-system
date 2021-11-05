@@ -21,4 +21,14 @@
             </tr>
         }
     </table>
+    @if (!Model.frozen) {
+        <form action=@Url.Action("LockMonth", "Home") method="post">
+            <input type="hidden" name="date" value=@Model.date.ToString("yyyy-MM")>
+            <button style="display: inline-block; border: none; background-color: transparent">
+                <i class="material-icons">lock</i>
+            </button>
+        </form>
+    } else {
+        <text>Month locked</text>
+    }
 </div>

@@ -37,12 +37,11 @@ namespace lab1.Models
                     });
                 }
             }
+            this.frozen = report.frozen;
             this.date = date;
         }
-
         public List<SummaryEntry> entries = new();
-
-
+        public bool frozen;
         public DateTime date;
     }
 }

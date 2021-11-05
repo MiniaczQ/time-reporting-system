@@ -9,7 +9,15 @@
             </style>
             <tr>
                 <td>Date</td>
-                <td><input class="myinput" type="date" name="date" required></td>
+                <td>
+                @{
+                    if (Model.date != null) {
+                        <input class="myinput" type="date" name="date" value=@Model.date.ToString("yyyy-MM-dd") required>
+                    } else {
+                        <input class="myinput" type="date" name="date" required>
+                    }
+                }
+                </td>
             </tr>
             <tr>
                 <td>Project</td>

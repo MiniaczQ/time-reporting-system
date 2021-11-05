@@ -8,20 +8,35 @@ namespace lab1.Models
 {
     public class DailyEntriesModel
     {
-        public DailyEntriesModel() : this(DateTime.Today) {}
+        public class ExtendedEntry {
+            public Entry inner;
+            public bool modifiable;
+        }
+        public DailyEntriesModel(String user) : this(user, DateTime.Today) {}
 
-        public DailyEntriesModel(DateTime date) {
+        public DailyEntriesModel(String user, DateTime date) {
             this.SelectedDate = date;
-            this.Entries = Entities.Entry.getAllAt(date);
+            var users = Users.load();
+            foreach (var u in users) {
+                var report = Report.load(u, date);
+                foreach (var entry in report.entries) {
+                    if (entry.date.Date.CompareTo(date) == 0) {
+                        this.Entries.Add(new ExtendedEntry {
+                            inner = entry,
+                            modifiable = u.Equals(user) & !report.frozen,
+                        });
+                    }
+                }
+            }
             this.Entries.ForEach(e =>
             {
-                this.TotalTime += e.time;
+                this.TotalTime += e.inner.time;
             });
         }
 
         public DateTime SelectedDate;
 
-        public List<Entry> Entries = new List<Entry>();
+        public List<ExtendedEntry> Entries = new List<ExtendedEntry>();
 
         public int TotalTime = 0;
     }

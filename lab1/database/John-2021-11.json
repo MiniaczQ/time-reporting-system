@@ -2,18 +2,18 @@
   "frozen": false,
   "entries": [
     {
-      "date": "2021-11-04T00:00:00",
+      "date": "2021-11-05T00:00:00",
       "code": "Czerwony",
-      "subcode": "1",
-      "time": 1234,
-      "description": null
+      "subcode": "tajne zadanie czerwone",
+      "time": 60,
+      "description": "Test"
     },
     {
-      "date": "2021-11-04T00:00:00",
-      "code": "Czerwony",
-      "subcode": "1",
-      "time": 6,
-      "description": null
+      "date": "2021-11-05T00:00:00",
+      "code": "\u017B\u00F3\u0142ty",
+      "subcode": "2",
+      "time": 45,
+      "description": "Eksperyment"
     }
   ],
   "acceptedEntries": []

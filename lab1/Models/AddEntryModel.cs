@@ -13,6 +13,11 @@ namespace lab1.Models
             this.Activities.activities.RemoveAll(a => a.active == false);
         }
 
+        public AddEntryModel(DateTime? date) : this() {
+            this.date = date;
+        }
+
         public Activities Activities;
+        public DateTime? date;
     }
 }

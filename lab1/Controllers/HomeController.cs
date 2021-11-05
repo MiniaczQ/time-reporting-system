@@ -66,16 +66,21 @@ namespace lab1.Controllers
         [HttpGet]
         public IActionResult DailyEntries(DateTime? date)
         {
+            var user = Request.Cookies["user"];
+            if (user == null) {
+                return Redirect("/Home/UserSelect");
+            }
             if (date.HasValue) {
-                return View(new DailyEntriesModel(date.Value));
+                return View(new DailyEntriesModel(user, date.Value));
             } else {
-                return View(new DailyEntriesModel());
+                return View(new DailyEntriesModel(user));
             }
         }
 
-        public IActionResult AddEntry()
+        public IActionResult AddEntry(DateTime? date)
         {
-            return View(new AddEntryModel());
+            System.Console.WriteLine(date);
+            return View(new AddEntryModel(date));
         }
 
         public IActionResult ModifyEntry(DateTime date, int index)
@@ -114,11 +119,10 @@ namespace lab1.Controllers
         public IActionResult MyActivities()
         {
             var user = Request.Cookies["user"];
-            if (user != null) {
-                return View(new MyActivitiesModel(user));
-            } else {
+            if (user == null) {
                 return Redirect("/Home/UserSelect");
             }
+            return View(new MyActivitiesModel(user));
         }
 
         public IActionResult MonthlySummary(DateTime? date)
@@ -140,12 +144,26 @@ namespace lab1.Controllers
         }
 
         [HttpPost]
+        public IActionResult LockMonth(DateTime date)
+        {
+            var user = Request.Cookies["user"];
+            if (user == null)
+            {
+                return Redirect("/Home/UserSelect");
+            }
+            var report = Entities.Report.load(user, date);
+            report.frozen = true;
+            Entities.Report.save(report, user, date);
+            return RedirectToAction("MonthlySummary");
+        }
+
+        [HttpPost]
         public IActionResult AddActivity(String name, String code, String subactivities, int budget)
         {
             var user = Request.Cookies["user"];
             if (user == null)
             {
-                return RedirectToAction("DailyEntries");
+                return Redirect("/Home/UserSelect");
             }
             var activities = Entities.Activities.load();
             if (activities.activities.Any(e => e.code.Equals(code)))
