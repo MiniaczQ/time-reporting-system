@@ -10,7 +10,6 @@ namespace lab1.Models
     {
         public ModifyEntryModel(DateTime date, int index) {
             var result = Entities.Entry.getOneAt(date, index);
-            System.Console.WriteLine(this.index);
             this.user = result.Item1;
             this.index = result.Item2;
             this.entry = result.Item3;

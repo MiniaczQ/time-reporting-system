@@ -1,40 +1,79 @@
 {
-    "activities": [
+  "activities": [
+    {
+      "code": "Czerwony",
+      "manager": "John",
+      "name": "Projekt czerwony",
+      "budget": 512,
+      "active": true,
+      "subactivities": [
         {
-            "code": "Czerwony",
-            "manager": "John",
-            "name": "Projekt czerwony",
-            "budget": 512,
-            "active": true,
-            "subactivities": [
-                {"code":"1"},
-                {"code":"2"},
-                {"code":"tajne zadanie czerwone"}
-            ]
+          "code": "1"
         },
         {
-            "code": "Zielony",
-            "manager": "Mark",
-            "name": "Projekt zielony",
-            "budget": 1024,
-            "active": true,
-            "subactivities": [
-                {"code":"1"},
-                {"code":"2"},
-                {"code":"tajne zadanie zielone"}
-            ]
+          "code": "2"
         },
         {
-            "code": "Żółty",
-            "manager": "John",
-            "name": "Projekt żółty",
-            "budget": 2048,
-            "active": true,
-            "subactivities": [
-                {"code":"1"},
-                {"code":"2"},
-                {"code":"tajne zadanie żółte"}
-            ]
+          "code": "tajne zadanie czerwone"
         }
-    ]
+      ]
+    },
+    {
+      "code": "Zielony",
+      "manager": "Mark",
+      "name": "Projekt zielony",
+      "budget": 1024,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "1"
+        },
+        {
+          "code": "2"
+        },
+        {
+          "code": "tajne zadanie zielone"
+        }
+      ]
+    },
+    {
+      "code": "\u017B\u00F3\u0142ty",
+      "manager": "John",
+      "name": "Projekt \u017C\u00F3\u0142ty",
+      "budget": 2048,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "1"
+        },
+        {
+          "code": "2"
+        },
+        {
+          "code": "tajne zadanie \u017C\u00F3\u0142te"
+        }
+      ]
+    },
+    {
+      "code": "R2D2",
+      "manager": "John",
+      "name": "artuditu",
+      "budget": 1000,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "alfa"
+        },
+        {
+          "code": "beta"
+        },
+        {
+          "code": "gamma"
+        },
+        {
+          "code": "delta"
+        }
+      ]
+    }
+  ]
 }

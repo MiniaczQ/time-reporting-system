@@ -1,0 +1,26 @@
+﻿<div class="text-center">
+    <form method="post">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" required></td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td><input type="text" name="code" required></td>
+            </tr>
+            <tr>
+                <td>Subactivities</td>
+                <td><input type="text" name="subactivities" placeholder="separated with spaces" required></td>
+            </tr>
+            <tr>
+                <td>Budget</td>
+                <td><input type="number" name="budget" min=-1></td>
+            </tr>
+            <tr>
+                <td><button type="submit" value="Cancel" onclick="history.back()">Cancel</button></td>
+                <td><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+</div>

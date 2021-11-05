@@ -1,8 +1,8 @@
 ﻿<div class="text-center">
-    <h1 class="display-4">Activities for @Model.SelectedDate</h1>
     <form>
-        <p>Change preview date</p>
-        <input type="date" name="date" onchange="this.form.submit()">
+        <h1 class="display-4">Activities for
+            <input type="date" name="date" value=@Model.SelectedDate.ToString("yyyy-MM-dd") onchange="this.form.submit()">
+        </h1>
     </form>
     <table style="width: 100%">
         <tr>
@@ -26,7 +26,7 @@
                         <button type="submit" style="display: inline-block; border: none; background-color: transparent">
                             <i class="material-icons">info</i>
                         </button>
-                    </form>
+                    </form>w
                     <form action=@Url.Action("ModifyEntry", "Home")>
                         <input name="date" value=@date hidden>
                         <input name="index" value=@i hidden>

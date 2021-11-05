@@ -50,7 +50,6 @@ namespace lab1.Entities
                     {
                         i++;
                     }
-                    System.Console.WriteLine($"a {i} {j}");
                     if (i == index)
                     {
                         return Tuple.Create(user, j, entry);

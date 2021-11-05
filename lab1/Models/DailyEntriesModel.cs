@@ -11,7 +11,7 @@ namespace lab1.Models
         public DailyEntriesModel() : this(DateTime.Today) {}
 
         public DailyEntriesModel(DateTime date) {
-            this.SelectedDate = date.ToLongDateString();
+            this.SelectedDate = date;
             this.Entries = Entities.Entry.getAllAt(date);
             this.Entries.ForEach(e =>
             {
@@ -19,7 +19,7 @@ namespace lab1.Models
             });
         }
 
-        public String SelectedDate;
+        public DateTime SelectedDate;
 
         public List<Entry> Entries = new List<Entry>();
 

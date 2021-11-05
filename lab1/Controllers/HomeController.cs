@@ -81,14 +81,12 @@ namespace lab1.Controllers
         public IActionResult ModifyEntry(DateTime date, int index)
         {
             var model = new ModifyEntryModel(date, index);
-            System.Console.WriteLine($"dsdsdsd {model.index}");
             return View(model);
         }
 
         [HttpPost]
         public IActionResult ModifyEntry(DateTime date, String subcode, int time, String description, String user, int index)
         {
-            System.Console.WriteLine(index);
             var report = Entities.Report.load(user, date);
             var entry = report.entries[index];
             report.entries.RemoveAt(index);
@@ -111,6 +109,49 @@ namespace lab1.Controllers
         public IActionResult EntryInfo(DateTime date, int index)
         {
             return View(new EntryInfoModel(date, index));
+        }
+
+        public IActionResult MyActivities()
+        {
+            var user = Request.Cookies["user"];
+            if (user != null) {
+                return View(new MyActivitiesModel(user));
+            } else {
+                return Redirect("/Home/UserSelect");
+            }
+        }
+
+        public IActionResult AddActivity()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddActivity(String name, String code, String subactivities, int budget)
+        {
+            var user = Request.Cookies["user"];
+            if (user == null)
+            {
+                return RedirectToAction("DailyEntries");
+            }
+            var activities = Entities.Activities.load();
+            if (activities.activities.Any(e => e.code.Equals(code)))
+            {
+                return RedirectToAction("DailyEntries");
+            }
+            var sactivities = subactivities.Split(' ').Select(e => new Entities.Subcode {code=e}).ToList();
+            var activity = new Entities.Activity
+            {
+                name = name,
+                code = code,
+                subactivities = sactivities,
+                budget = budget,
+                manager = user,
+                active = true,
+            };
+            activities.activities.Add(activity);
+            Entities.Activities.save(activities);
+            return RedirectToAction("DailyEntries");
         }
 
         [HttpPost]
