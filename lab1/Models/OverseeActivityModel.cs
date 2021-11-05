@@ -31,6 +31,7 @@ namespace lab1.Models
             public String description;
         }
 
+        // \/ \/ \/ Lots of mapping because JSON \/ \/ \/
         ReducedEntry IntoReducedEntry(Entities.Entry entry)
         {
             return new ReducedEntry
@@ -122,6 +123,7 @@ namespace lab1.Models
             }
             return null;
         }
+        // /\ /\ /\ Lots of mapping because JSON /\ /\ /\
         public OverseeActivityModel(String code, bool active)
         {
             this.code = code;
