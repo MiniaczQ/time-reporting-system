@@ -121,6 +121,19 @@ namespace lab1.Controllers
             }
         }
 
+        public IActionResult MonthlySummary(DateTime? date)
+        {
+            var user = Request.Cookies["user"];
+            if (user == null) {
+                return Redirect("/Home/UserSelect");
+            }
+            if (date.HasValue) {
+                return View(new MonthlySummaryModel(user, date.Value));
+            } else {
+                return View(new MonthlySummaryModel(user));
+            }
+        }
+
         public IActionResult AddActivity()
         {
             return View();
