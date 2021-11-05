@@ -9,8 +9,21 @@ namespace lab1.Models
     public class MyActivitiesModel
     {
         public MyActivitiesModel(String user) {
-            this.Activities = Entities.Activities.load();
-            this.Activities.activities.RemoveAll(a => a.manager != user);
+            var activities = Entities.Activities.load();
+            activities.activities.RemoveAll(a => a.manager != user);
+            var reports = Entities.Report.getAll();
+            foreach (var report in reports)
+            {
+                foreach (var entry in report.acceptedEntries)
+                {
+                    foreach (var activity in activities.activities) {
+                        if (entry.code.Equals(activity.code)) {
+                            activity.budget -= entry.time;
+                        }
+                    }
+                }
+            }
+            this.Activities = activities;
         }
 
         public Activities Activities;

@@ -1,0 +1,43 @@
+﻿@model OverseeActivityModel
+<div class="text-center">
+    <table style="width: 100%">
+        @foreach (var userReports in Model.usersReports) {
+            <tr>
+                <td style="width: 10%">@userReports.user</td>
+                <td style="width: 90%"><table>
+                    @foreach (var dateReport in userReports.reports) {
+                        <tr>
+                            <td style="width: 10%">@dateReport.date.ToString("yyyy-MM")</td>
+                            <td style="width: 80%"><table>
+                                @foreach (var codeEntries in dateReport.report) {
+                                    <tr>
+                                        <td style="width: 10%">@codeEntries.code</td>
+                                        <td style="width: 50%"><table>
+                                            @foreach (var entry in codeEntries.entries) {
+                                                <tr>
+                                                    <text>@entry.time</text><br>
+                                                </tr>
+                                            }
+                                        </table></td>
+                                        <td style="width: 20%">
+                                            @if (Model.active) {
+                                                <form asp-action="SetActivityTimeBudget">
+                                                    <input type="hidden" name="code" value=@Model.code>
+                                                    <input type="hidden" name="date" value=@dateReport.date>
+                                                    <input type="hidden" name="user" value=@userReports.user>
+                                                    <input type="number" name="budget" value=@codeEntries.budget>
+                                                    <input type="submit" value="Change">
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </table></td>
+                        </tr>
+                    }
+                </table></td>
+            </tr>
+        }
+        
+    </table>
+</div>

@@ -120,5 +120,42 @@ namespace lab1.Entities
             var bytes = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(report, json_options);
             System.IO.File.WriteAllBytes(path, bytes);
         }
+
+        public static List<DateTime> getAllDatesForUser(String user)
+        {
+            var allFiles = System.IO.Directory.GetFiles("database");
+            var reCheck = new System.Text.RegularExpressions.Regex(user + @"-[0-9]{4}-[0-9]{2}\.json");
+            var reExtractDate = new System.Text.RegularExpressions.Regex("[0-9]{4}-[0-9]{2}", System.Text.RegularExpressions.RegexOptions.RightToLeft);
+            return allFiles.Where(e => reCheck.IsMatch(e)).Select(e => reExtractDate.Match(e).Value).Select(e => DateTime.ParseExact(e, "yyyy-MM", null)).ToList();
+        }
+
+        public static List<Report> getAll()
+        {
+            var allFiles = System.IO.Directory.GetFiles("database");
+            var reCheck = new System.Text.RegularExpressions.Regex(@".*?-[0-9]{4}-[0-9]{2}\.json");
+            var reExtractDate = new System.Text.RegularExpressions.Regex("[0-9]{4}-[0-9]{2}", System.Text.RegularExpressions.RegexOptions.RightToLeft);
+            return allFiles
+                .Where(e => reCheck.IsMatch(e))
+                .Select(e =>
+                {
+                    var v = reCheck.Match(e).Value;
+                    var user = v.Substring(9, v.Length - 22);
+                    var date = DateTime.ParseExact(reExtractDate.Match(e).Value, "yyyy-MM", null);
+                    return load(user, date);
+                }).ToList();
+        }
+
+        public class DateReport {
+            public DateTime date;
+            public Report report;
+        }
+        public static List<DateReport> getAllForUser(String user)
+        {
+            var dates = getAllDatesForUser(user);
+            return dates.Select(e => new DateReport {
+                date = e,
+                report = load(user, e),
+            }).ToList();
+        }
     }
 }

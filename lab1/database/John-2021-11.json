@@ -3,18 +3,16 @@
   "entries": [
     {
       "date": "2021-11-05T00:00:00",
-      "code": "Czerwony",
-      "subcode": "tajne zadanie czerwone",
-      "time": 60,
-      "description": "Test"
-    },
-    {
-      "date": "2021-11-05T00:00:00",
-      "code": "\u017B\u00F3\u0142ty",
-      "subcode": "2",
-      "time": 45,
-      "description": "Eksperyment"
+      "code": "MK1",
+      "subcode": "think",
+      "time": 5,
+      "description": "Thinking in the shower"
     }
   ],
-  "acceptedEntries": []
+  "acceptedEntries": [
+    {
+      "code": "JP1",
+      "time": 40
+    }
+  ]
 }

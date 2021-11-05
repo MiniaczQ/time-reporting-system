@@ -1,77 +1,50 @@
 {
   "activities": [
     {
-      "code": "Czerwony",
+      "code": "JP1",
       "manager": "John",
-      "name": "Projekt czerwony",
-      "budget": 512,
+      "name": "John\u0027s Project Nr1",
+      "budget": 180,
       "active": true,
       "subactivities": [
         {
-          "code": "1"
+          "code": "coffee"
         },
         {
-          "code": "2"
-        },
-        {
-          "code": "tajne zadanie czerwone"
+          "code": "cake"
         }
       ]
     },
     {
-      "code": "Zielony",
+      "code": "JP2",
+      "manager": "John",
+      "name": "John\u0027s Project Nr2",
+      "budget": 30,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "tea"
+        },
+        {
+          "code": "cookies"
+        }
+      ]
+    },
+    {
+      "code": "MK1",
       "manager": "Mark",
-      "name": "Projekt zielony",
-      "budget": 1024,
+      "name": "Mark\u0027s first project",
+      "budget": 320,
       "active": true,
       "subactivities": [
         {
-          "code": "1"
+          "code": "think"
         },
         {
-          "code": "2"
+          "code": "write"
         },
         {
-          "code": "tajne zadanie zielone"
-        }
-      ]
-    },
-    {
-      "code": "\u017B\u00F3\u0142ty",
-      "manager": "John",
-      "name": "Projekt \u017C\u00F3\u0142ty",
-      "budget": 2048,
-      "active": true,
-      "subactivities": [
-        {
-          "code": "1"
-        },
-        {
-          "code": "2"
-        },
-        {
-          "code": "tajne zadanie \u017C\u00F3\u0142te"
-        }
-      ]
-    },
-    {
-      "code": "R2D2",
-      "manager": "John",
-      "name": "artuditu",
-      "budget": 1000,
-      "active": true,
-      "subactivities": [
-        {
-          "code": "alfa"
-        },
-        {
-          "code": "beta"
-        },
-        {
-          "code": "gamma"
-        },
-        {
-          "code": "delta"
+          "code": "profits"
         }
       ]
     }

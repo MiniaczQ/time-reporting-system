@@ -7,8 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using Sustem = System;
-using Amogus = System.Text;
 
 namespace lab1
 {   
@@ -16,6 +14,7 @@ namespace lab1
     {
         public static void Main(string[] args)
         {
+            Entities.Report.getAllForUser("John");
             CreateHostBuilder(args).Build().Run();
         }
 

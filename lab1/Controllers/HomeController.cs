@@ -79,7 +79,6 @@ namespace lab1.Controllers
 
         public IActionResult AddEntry(DateTime? date)
         {
-            System.Console.WriteLine(date);
             return View(new AddEntryModel(date));
         }
 
@@ -123,6 +122,36 @@ namespace lab1.Controllers
                 return Redirect("/Home/UserSelect");
             }
             return View(new MyActivitiesModel(user));
+        }
+        public IActionResult CloseActivity(String code)
+        {
+            var activities = Entities.Activities.load();
+            var activity = activities.activities.Find(a => a.code.Equals(code));
+            activities.activities.RemoveAll(a => a.code.Equals(code));
+            activity.active = false;
+            activities.activities.Add(activity);
+            Entities.Activities.save(activities);
+            return RedirectToAction("MyActivities");
+        }
+        public IActionResult SetActivityTimeBudget(String code, DateTime date, int budget, String user)
+        {
+            var report = Entities.Report.load(user, date);
+            report.acceptedEntries.RemoveAll(e => e.code.Equals(code));
+            report.acceptedEntries.Add(new Entities.AcceptedEntry
+            {
+                code = code,
+                time = budget,
+            });
+            Entities.Report.save(report, user, date);
+            return Redirect($"/Home/OverseeActivity?code={code}&active=true");
+        }
+        public IActionResult OverseeActivity(String code, bool active)
+        {
+            var user = Request.Cookies["user"];
+            if (user == null) {
+                return Redirect("/Home/UserSelect");
+            }
+            return View(new OverseeActivityModel(code, active));
         }
 
         public IActionResult MonthlySummary(DateTime? date)
