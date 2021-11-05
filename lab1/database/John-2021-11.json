@@ -3,16 +3,25 @@
   "entries": [
     {
       "date": "2021-11-05T00:00:00",
-      "code": "MK1",
-      "subcode": "think",
-      "time": 5,
-      "description": "Thinking in the shower"
+      "code": "B1",
+      "subcode": "orange",
+      "time": 3,
+      "description": "eat orange"
+    },
+    {
+      "date": "2021-11-05T00:00:00",
+      "code": "M1",
+      "subcode": "gamma",
+      "time": 19,
+      "description": "opoppoppopopopopo"
+    },
+    {
+      "date": "2021-11-06T00:00:00",
+      "code": "J2",
+      "subcode": "five",
+      "time": 30,
+      "description": "working on my own project"
     }
   ],
-  "acceptedEntries": [
-    {
-      "code": "JP1",
-      "time": 40
-    }
-  ]
+  "acceptedEntries": []
 }

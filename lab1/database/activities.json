@@ -1,50 +1,92 @@
 {
   "activities": [
     {
-      "code": "JP1",
+      "code": "J1",
       "manager": "John",
-      "name": "John\u0027s Project Nr1",
-      "budget": 180,
+      "name": "Johns project",
+      "budget": 60,
       "active": true,
       "subactivities": [
         {
-          "code": "coffee"
+          "code": "one"
         },
         {
-          "code": "cake"
+          "code": "two"
+        },
+        {
+          "code": "three"
         }
       ]
     },
     {
-      "code": "JP2",
+      "code": "J2",
       "manager": "John",
-      "name": "John\u0027s Project Nr2",
-      "budget": 30,
+      "name": "Johns project 2",
+      "budget": 120,
       "active": true,
       "subactivities": [
         {
-          "code": "tea"
+          "code": "four"
         },
         {
-          "code": "cookies"
+          "code": "five"
+        },
+        {
+          "code": "six"
         }
       ]
     },
     {
-      "code": "MK1",
+      "code": "M1",
       "manager": "Mark",
-      "name": "Mark\u0027s first project",
-      "budget": 320,
+      "name": "Marks project",
+      "budget": 90,
       "active": true,
       "subactivities": [
         {
-          "code": "think"
+          "code": "alpha"
         },
         {
-          "code": "write"
+          "code": "beta"
         },
         {
-          "code": "profits"
+          "code": "gamma"
+        }
+      ]
+    },
+    {
+      "code": "H1",
+      "manager": "Harry",
+      "name": "Harrys project",
+      "budget": 240,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "harry1"
+        },
+        {
+          "code": "harry2"
+        },
+        {
+          "code": "harry3"
+        }
+      ]
+    },
+    {
+      "code": "B1",
+      "manager": "Barry",
+      "name": "Barrys project",
+      "budget": 15,
+      "active": true,
+      "subactivities": [
+        {
+          "code": "apple"
+        },
+        {
+          "code": "pear"
+        },
+        {
+          "code": "orange"
         }
       ]
     }
