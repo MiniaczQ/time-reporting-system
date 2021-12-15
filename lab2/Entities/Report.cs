@@ -6,7 +6,12 @@ namespace lab1.Entities
     public class Report
     {
         // Composite key
-        public DateTime ReportMonth { get; set; }
+        private DateTime _ReportMonth;
+        public DateTime ReportMonth
+        {
+            get => _ReportMonth;
+            set => _ReportMonth = new DateTime(value.Year, value.Month, 0);
+        }
         public String UserName { get; set; }
 
         // Fields
@@ -18,6 +23,5 @@ namespace lab1.Entities
         // Children
         public virtual ICollection<AcceptedEntry> AcceptedEntries { get; set; }
         public virtual ICollection<Entry> Entries { get; set; }
-
     }
 }

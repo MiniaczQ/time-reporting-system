@@ -11,7 +11,11 @@ namespace lab1.Entities
         public String SubactivityCode { get; set; }
 
         // Fields
-        public DateTime Date { get; set; }
+        private DateTime _Date;
+        public DateTime Date {
+            get => _Date;
+            set => _Date = value.Date;
+        }
         public int Time { get; set; }
         public String Description { get; set; }
 
