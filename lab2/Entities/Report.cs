@@ -10,7 +10,7 @@ namespace lab1.Entities
         public DateTime ReportMonth
         {
             get => _ReportMonth;
-            set => _ReportMonth = new DateTime(value.Year, value.Month, 0);
+            set => _ReportMonth = new DateTime(value.Year, value.Month, 1);
         }
         public String UserName { get; set; }
 
