@@ -1,0 +1,34 @@
+﻿@model MonthlySummaryModel
+<div class="text-center">
+    <form>
+        <h1 class="display-4">Projects for
+            <input type="month" name="date" value=@Model.date.ToString("yyyy-MM") onchange="this.form.submit()">
+        </h1>
+    </form>
+    <table style="width: 100%">
+        <tr>
+            <th style="width: 40%">Project name</th>
+            <th style="width: 30%">My entries</th>
+            <th style="width: 30%">Submited time [min]</th>
+            <th style="width: 30%">Accepted time [min]</th>
+        </tr>
+        @foreach (var entry in Model.entries) {
+            <tr>
+                <td>@entry.name</td>
+                <td>@entry.entries</td>
+                <td>@entry.time</td>
+                <td>@entry.accepted_time</td>
+            </tr>
+        }
+    </table>
+    @if (!Model.frozen) {
+        <form action=@Url.Action("LockMonth", "Home") method="post">
+            <input type="hidden" name="date" value=@Model.date.ToString("yyyy-MM")>
+            <button style="display: inline-block; border: none; background-color: transparent">
+                <i class="material-icons">lock</i>
+            </button>
+        </form>
+    } else {
+        <text>Month locked</text>
+    }
+</div>

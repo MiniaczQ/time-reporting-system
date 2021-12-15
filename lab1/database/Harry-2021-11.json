@@ -16,5 +16,10 @@
       "description": "testopoppopo"
     }
   ],
-  "acceptedEntries": []
+  "acceptedEntries": [
+    {
+      "code": "J1",
+      "time": 60
+    }
+  ]
 }

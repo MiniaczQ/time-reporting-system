@@ -1,0 +1,79 @@
+﻿<div class="text-center">
+    <p>Add new entry:</p>
+    <form method="post">
+        <table width="100%">
+            <style>
+                .myinput {
+                    width: 50%;
+                }
+            </style>
+            <tr>
+                <td>Date</td>
+                <td>
+                @{
+                    if (Model.date != null) {
+                        <input class="myinput" type="date" name="date" value=@Model.date.ToString("yyyy-MM-dd") required>
+                    } else {
+                        <input class="myinput" type="date" name="date" required>
+                    }
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>Project</td>
+                <td>
+                    <select class="myinput" name="code" id="major_select" required>
+                        @foreach (var activity in Model.Activities.activities) {
+                            <option value=@activity.code>@activity.name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td><input class="myinput" type="number" name="time" min=1 required></td>
+            </tr>
+            <tr>
+                <td>Subcode</td>
+                <td><select class="myinput" name="subcode" id="minor_select"></select></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input class="myinput" type="text" name="description"></td>
+            </tr>
+        </table>
+        <input type="submit">
+    </form>
+    <input type="button" value="Cancel" onclick="history.back()">
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        updateSubcodes();
+    })
+
+    $("#major_select").change(function () {
+        updateSubcodes();
+    });
+
+    var updateSubcodes = function () {
+        $.ajax({
+            url: '@Url.Action("GetSubcodes","Home")',
+            type: 'GET',
+            data: {
+                code:$('#major_select').val(),
+            },
+            success: function (data) {
+                $('#minor_select').find('option').remove()
+                $(data).each(
+                    function (index, subcode) {
+                        $('#minor_select').append('<option>' + subcode + '</option>')
+                    }
+                );
+            },
+            error: function () {}
+        });
+    }
+   
+</script>

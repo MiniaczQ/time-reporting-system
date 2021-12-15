@@ -1,0 +1,50 @@
+﻿@model ModifyEntryModel
+<div class="text-center">
+    <p>Modify entry:</p>
+    @using (Html.BeginForm("ModifyEntry", "Home", FormMethod.Post)) {
+        <table width="100%">
+            <style>
+                .myinput {
+                    width: 50%;
+                }
+            </style>
+            <tr>
+                <td>Date</td>
+                <td>
+                    @Html.DisplayFor(m => m.entry.date)
+                </td>
+            </tr>
+            <tr>
+                <td>Project</td>
+                <td>
+                    @Html.DisplayFor(m => m.activity.name)
+                </td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td>
+                    <input class="myinput" type="number" name="time" min=1 asp-for="entry.time" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Subcode</td>
+                <td><select class="myinput" name="subcode" id="minor_select">
+                    @foreach (var subcode in Model.activity.subactivities) {
+                        <option>@subcode.code</option>
+                    }
+                </select></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <input class="myinput" type="text" name="description" asp-for="entry.description">
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="date" asp-for="entry.date">
+        <input type="hidden" name="user" asp-for="user">
+        <input type="hidden" name="index" value=@Model.index> // Hoax >:C
+        <input type="submit">
+    }
+    <input type="button" value="Cancel" onclick="history.back()">
+</div>

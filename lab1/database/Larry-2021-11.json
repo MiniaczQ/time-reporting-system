@@ -23,5 +23,10 @@
       "description": "bottom text"
     }
   ],
-  "acceptedEntries": []
+  "acceptedEntries": [
+    {
+      "code": "J1",
+      "time": 120
+    }
+  ]
 }
