@@ -1,0 +1,16 @@
+@model LoginModel
+<div class="text-center">
+    <h1 class="display-4">Identify yourself.</h1>
+    <form method="post">
+        <select name="username" asp-items="Model.UserList" required></select>
+        <button type="submit" name="type" value="existing-user">Login</button>
+    </form>
+    <form method="post">
+        <input type="text" name="username" required>
+        <button type="submit" name="type" value="new-user">Create</button>
+    </form>
+    @if (!Model.Message.Equals(""))
+    {
+        <p>@Model.Message</p>
+    }
+</div>
