@@ -8,18 +8,18 @@ using EFCore.NamingConventions;
 
 namespace lab1.Entities
 {
-    public class AppContext : DbContext
+    public class LabContext : DbContext
     {
-        public DbSet<AcceptedEntry> acceptedEntries { get; set; }
-        public DbSet<Activity> activities { get; set; }
-        public DbSet<Entry> entries { get; set; }
-        public DbSet<Report> reports { get; set; }
-        public DbSet<Subcode> subcodes { get; set; }
-        public DbSet<User> users { get; set; }
+        public DbSet<AcceptedEntry> AcceptedEntries { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Entry> Entries { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<Subcode> Subcodes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder
-                .UseNpgsql("Host=localhost;Database=jmotyka;Username=jmotyka;Password=jmotyka")
+                .UseNpgsql("Server=localhost;Port=5432;Database=jmotyka;User Id=jmotyka;Password=jmotyka")
                 .UseSnakeCaseNamingConvention();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,7 +78,7 @@ namespace lab1.Entities
 
             // Report
             modelBuilder.Entity<Report>()
-                .HasKey(r => new { r.UserName, r.ReportMonth });
+                .HasKey(r => new { r.ReportMonth, r.UserName });
             modelBuilder.Entity<Report>()
                 .Property(r => r.Frozen);
             modelBuilder.Entity<Report>()

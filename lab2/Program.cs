@@ -8,13 +8,21 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
+using lab1.Entities;
+
 namespace lab1
-{   
+{
     public class Program
     {
         public static void Main(string[] args)
         {
-            Entities.Report.getAllForUser("John");
+            using (var db = new LabContext())
+            {
+                var available = db.Database.CanConnect();
+                if (!available)
+                    throw new Exception("Database unavailable!");
+                db.Database.EnsureCreated();
+            }
             CreateHostBuilder(args).Build().Run();
         }
 
