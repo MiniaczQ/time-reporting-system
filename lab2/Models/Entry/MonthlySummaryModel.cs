@@ -21,7 +21,6 @@ namespace lab1.Models
                 if (this.Report == null)
                 {
                     this.Report = new Report { ReportMonth = ReportMonth };
-                    this.Triplets = new();
                     return;
                 }
 
@@ -31,7 +30,7 @@ namespace lab1.Models
                     .Include(e => e.Activity)
                     .AsEnumerable()
                     .GroupBy(e => e.Activity);
-                var aes = db.AcceptedEntries.Where(r => r.ReportMonth == ReportMonth && r.UserName == UserName);
+                var aes = db.AcceptedEntries.Where(ae => ae.ReportMonth == ReportMonth && ae.UserName == UserName);
                 this.Triplets = entries_by_activities
                     .GroupJoin(aes,
                     ea => ea.Key.ActivityCode,
@@ -44,10 +43,10 @@ namespace lab1.Models
         {
             public Activity Activity;
             public AcceptedEntry AcceptedEntry;
-            public List<Entry> Entries;
+            public List<Entry> Entries = new();
         }
 
         public Report Report { get; set; }
-        public List<Triplet> Triplets { get; set; }
+        public List<Triplet> Triplets { get; set; } = new();
     }
 }

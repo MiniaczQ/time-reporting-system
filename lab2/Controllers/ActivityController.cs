@@ -8,6 +8,7 @@ using lab1.Models;
 using Microsoft.AspNetCore.Http;
 using lab1.Entities;
 using Microsoft.EntityFrameworkCore;
+using lab1.debug;
 
 namespace lab1.Controllers
 {
@@ -60,6 +61,26 @@ namespace lab1.Controllers
             catch (DbUpdateException)
             {
                 return RedirectToAction("MyActivities");
+            }
+            return RedirectToAction("MyActivities");
+        }
+
+        [HttpGet]
+        public IActionResult ActivityInfo(string ActivityCode)
+        {
+            return View(new ActivityInfoModel(ActivityCode));
+        }
+
+        [HttpGet]
+        public IActionResult Deactivate(string ActivityCode)
+        {
+            Activity activity;
+            using (var db = new LabContext())
+            {
+                activity = db.Activities.Where(a => a.ActivityCode == ActivityCode).FirstOrDefault();
+                activity.Active = false;
+                db.Update(activity);
+                db.SaveChanges();
             }
             return RedirectToAction("MyActivities");
         }

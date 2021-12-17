@@ -8,7 +8,7 @@
             <th>Subcodes</th>
             <th>Options</th>
         </tr>
-        <tr><td colspan="4"><hr></td></tr>
+        <tr><td colspan="5"><hr></td></tr>
         @foreach (var activity in Model.Activities)
         {
             bool firstIter = true;
@@ -28,17 +28,17 @@
                     @if (firstIter)
                     {
                         <td rowspan="@rowspan" style="font-size: 0">
-                            <form action=@Url.Action("ViewActivity") style="display: inline-block">
-                                <button style="display: inline-block; border: none; background-color: transparent">
-                                    <i class="material-icons">fact_check</i>
-                                </button>
-                            </form>
+                            @{
+                                var infoUrl = Url.Action("ActivityInfo", new { ActivityCode = activity.ActivityCode });
+                                var deactivateUrl = Url.Action("Deactivate", new { ActivityCode = activity.ActivityCode });
+                            }
+                            <button style="display: inline-block; border: none; background-color: transparent" onclick="location.href = '@infoUrl'">
+                                <i class="material-icons">fact_check</i>
+                            </button>
                             @if (activity.Active) {
-                                <form action=@Url.Action("Deactivate") style="display: inline-block">
-                                    <button type="submit" style="display: inline-block; border: none; background-color: transparent">
-                                        <i class="material-icons">lock</i>
-                                    </button>
-                                </form>
+                                <button type="submit" method="post" style="display: inline-block; border: none; background-color: transparent" onclick="location.href = '@deactivateUrl'">
+                                    <i class="material-icons">lock</i>
+                                </button>
                             }
                         </td>
                     }
@@ -47,7 +47,7 @@
                     }
                 </tr>
             }
-            <tr><td colspan="4"><hr></td></tr>
+            <tr><td colspan="5"><hr></td></tr>
         }
     </table>
 </div>
