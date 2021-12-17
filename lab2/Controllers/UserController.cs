@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using lab1.Models;
 using Microsoft.AspNetCore.Http;
 using lab1.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace lab1.Controllers
 {
@@ -20,22 +21,14 @@ namespace lab1.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Login path
-        /// Invalid flag is for failed attempt at adding an user
-        /// </summary>
         [HttpGet]
         public IActionResult Login(bool? UserAlreadyExists, bool? LoggedOut)
         {
             return View(new LoginModel(UserAlreadyExists, LoggedOut));
         }
 
-        /// <summary>
-        /// Login request
-        /// If `type` is set to `New user`, it will also attempt to add it before logging in
-        /// </summary>
         [HttpPost]
-        public IActionResult Login(String username, String type)
+        public IActionResult Login(string username, string type)
         {
             var user = new User { UserName = username };
 
@@ -48,26 +41,24 @@ namespace lab1.Controllers
                         db.SaveChanges();
                     }
                 }
-                catch (System.Exception)
+                catch (DbUpdateException)
                 {
-                    return Redirect("./Login?UserAlreadyExists=true");
+                    return RedirectToAction("Login", new { UserAlreadyExists = true });
                 }
 
             var cookie_options = new CookieOptions { HttpOnly = false, Secure = false, MaxAge = TimeSpan.FromMinutes(15) };
             Response.Cookies.Append("user", user.UserName, cookie_options);
 
-            return Redirect("/Home/DailyEntries");
+            return RedirectToAction("MyEntries", "Entry");
         }
 
-        /// <summary>
-        /// Logout, redirects to login
-        /// </summary>
+        [HttpPost]
         public IActionResult Logout()
         {
             var cookie_options = new CookieOptions { HttpOnly = true, Secure = false, Expires = DateTime.UnixEpoch };
             Response.Cookies.Append("user", "", cookie_options);
 
-            return Redirect("./Login?LoggedOut=true");
+            return RedirectToAction("Login", new { LoggedOut = true });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
