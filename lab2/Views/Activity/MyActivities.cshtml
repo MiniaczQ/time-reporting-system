@@ -1,0 +1,54 @@
+﻿@model MyActivitiesModel
+<div class="text-center">
+    <table style="width: 100%">
+        <tr>
+            <th>Activity</th>
+            <th>Code</th>
+            <th>Subactivities</th>
+            <th>Options</th>
+        </tr>
+        <tr><td colspan="4"><hr></td></tr>
+        @foreach (var activity in Model.Activities)
+        {
+            bool firstIter = true;
+            int rowspan = activity.Subcodes.Count();
+            @foreach (var subcode in activity.Subcodes)
+            {
+                <tr>
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan">@activity.ActivityName</td>
+                        <td rowspan="@rowspan">@activity.ActivityCode</td>
+                    }
+
+                    <td>@subcode.SubactivityCode</td>
+
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan" style="font-size: 0">
+                            <form action=@Url.Action("EntryInfo", "Entry") style="display: inline-block">
+                                <button type="submit" style="display: inline-block; border: none; background-color: transparent">
+                                    <i class="material-icons">info</i>
+                                </button>
+                            </form>
+                            <form action=@Url.Action("EditEntry", "Entry") style="display: inline-block">
+                                <button style="display: inline-block; border: none; background-color: transparent">
+                                    <i class="material-icons">settings</i>
+                                </button>
+                            </form>
+                            <form method="post" action=@Url.Action("DeleteEntry", "Entry") style="display: inline-block">
+                                <button style="display: inline-block; border: none; background-color: transparent">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </form>
+                        </td>
+                    }
+                    @{
+                        firstIter = false;
+                    }
+                </tr>
+            }
+            <tr><td colspan="4"><hr></td></tr>
+        }
+    </table>
+</div>

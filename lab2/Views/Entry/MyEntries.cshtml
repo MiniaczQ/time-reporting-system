@@ -1,0 +1,60 @@
+﻿@model MyEntriesModel
+<div class="text-center">
+    <form>
+        <h1 class="display-4">Entries for
+            <input type="date" name="date" value=@Model.Date.ToString("yyyy-MM-dd") onchange="this.form.submit()">
+        </h1>
+    </form>
+    <table style="width: 100%">
+        <tr>
+            <th>Activity</th>
+            <th>Subactivity</th>
+            <th>Time [min]</th>
+            <th>Options</th>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <hr>
+            </td>
+        </tr>
+        @foreach (var entry in Model.Entries)
+        {
+            <tr>
+                <td>@entry.Activity.ActivityName</td>
+                <td>@entry.SubactivityCode</td>
+                <td>@entry.Time</td>
+                <td style="font-size: 0">
+                    <form action=@Url.Action("EntryInfo", "Entry") style="display: inline-block">
+                        <button type="submit" style="display: inline-block; border: none; background-color: transparent">
+                            <i class="material-icons">info</i>
+                        </button>
+                    </form>
+                    <form action=@Url.Action("EditEntry", "Entry") style="display: inline-block">
+                        <button style="display: inline-block; border: none; background-color: transparent">
+                            <i class="material-icons">settings</i>
+                        </button>
+                    </form>
+                    <form method="post" action=@Url.Action("DeleteEntry", "Entry") style="display: inline-block">
+                        <button style="display: inline-block; border: none; background-color: transparent">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <hr>
+                </td>
+            </tr>
+        }
+        <tr style="font-size: 0">
+            <td colspan=6>
+                <button style="display: inline-block; border: none; background-color: transparent"
+                    onclick="window.location.href = '@Url.Action("AddEntry", new { date = Model.Date.ToString("yyyy-MM-dd") })'">
+                    <i class="material-icons">add_circle</i>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <label>Total time: @Model.TotalTime</label>
+</div>

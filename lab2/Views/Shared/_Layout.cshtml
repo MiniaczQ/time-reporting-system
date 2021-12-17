@@ -27,27 +27,29 @@
                         {
                             <ul class="navbar-nav flex-grow-1"></ul>
                             <p style="float: righ">
-                                <button onclick="window.location.href = './Login';">Log in</button>
+                                <button onclick="window.location.href = '/User/Login';">Log in</button>
                             </p>
                         }
                         else
                         {
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="DailyEntries">Daily entries</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddEntry">Add
-                                        entry</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MyActivities">My
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Activity"
+                                asp-action="MyActivities">My
                                         activities</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddActivity">Add
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Activity"
+                                asp-action="AddActivity">Add
                                         activity</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Entry" asp-action="MyEntries">My
+                                        entries</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Entry" asp-action="AddEntry">Add
+                                        entry</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home"
@@ -56,7 +58,10 @@
                             </ul>
                             <p style="float: righ">
                                 Logged in as: @user
-                                <input type="button" value="Logout" onclick="window.location.href = './Logout';">
+                            <form method="post" action="/User/Logout">
+                                <button type="submit">Logout
+                                </button>
+                            </form>
                             </p>
                         }
                     }
