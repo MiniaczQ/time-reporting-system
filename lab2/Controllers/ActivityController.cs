@@ -71,7 +71,23 @@ namespace lab1.Controllers
             return View(new ActivityInfoModel(ActivityCode));
         }
 
-        [HttpGet]
+        [HttpPost]
+        public IActionResult UpdateTime(string ActivityCode, string UserName, DateTime ReportMonth, int Time)
+        {
+            AcceptedEntry acceptedEntry = new AcceptedEntry { ActivityCode = ActivityCode, UserName = UserName, ReportMonth = ReportMonth, Time = Time };
+            using (var db = new LabContext())
+            {
+                var first = db.AcceptedEntries.Where(a => a.ActivityCode == ActivityCode && a.UserName == UserName && a.ReportMonth == ReportMonth).AsNoTracking().FirstOrDefault();
+                if (first != null)
+                    db.Update(acceptedEntry);
+                else
+                    db.Add(acceptedEntry);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ActivityInfo", new { ActivityCode = ActivityCode });
+        }
+
+        [HttpPost]
         public IActionResult Deactivate(string ActivityCode)
         {
             Activity activity;

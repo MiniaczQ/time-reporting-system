@@ -38,7 +38,15 @@
                     {
                         <td rowspan="@rowspan">@quartet.Entries.Sum(e => e.Time)</td>
                         <td rowspan="@rowspan">
-                            :)
+                            <form action="UpdateTime" method="post">
+                                <input type="hidden" name="ActivityCode", value=@Model.Activity.ActivityCode>
+                                <input type="hidden" name="UserName", value=@quartet.UserName>
+                                <input type="hidden" name="ReportMonth", value=@quartet.ReportMonth>
+                                <input type="number" name="Time" value=@(quartet.AcceptedEntry?.Time ?? 0)>
+                                <button type="submit" style="border: none; background-color: transparent">
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                            </form>
                         </td>
                     }
                     @{
