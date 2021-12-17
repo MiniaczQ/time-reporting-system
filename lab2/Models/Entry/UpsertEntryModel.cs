@@ -33,7 +33,7 @@ namespace lab1.Models
             this.Insert = false;
             using (var db = new LabContext())
             {
-                this.Subcodes = db.Subcodes.Where(s => s.ActivityCode == entry.ActivityCode).Select(s => new SelectListItem(s.SubactivityCode, s.SubactivityCode)).ToList();
+                this.Subcodes = db.Subcodes.Where(s => s.ActivityCode == entry.ActivityCode).Select(s => s.SubactivityCode).AsEnumerable().Prepend("").Select(s => new SelectListItem(s, s)).ToList();
             }
         }
 

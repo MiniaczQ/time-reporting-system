@@ -34,7 +34,7 @@
                             <i class="material-icons">info</i>
                         </button>
                     </form>
-                    @if (!entry.Report.Frozen)
+                    @if (!Model.Report.Frozen)
                     {
                         <form action=@Url.Action("ModifyEntry", "Entry") style="display: inline-block">
                             @Html.HiddenFor(m => m.SelectedEntry.UserName)
@@ -63,14 +63,17 @@
                 </td>
             </tr>
         }
-        <tr style="font-size: 0">
-            <td colspan=6>
-                <button style="display: inline-block; border: none; background-color: transparent"
+        @if (!Model.Report.Frozen)
+        {
+            <tr style="font-size: 0">
+                <td colspan=6>
+                    <button style="display: inline-block; border: none; background-color: transparent"
                     onclick="window.location.href = '@Url.Action("AddEntry", new { date = Model.Date.ToString("yyyy-MM-dd") })'">
-                    <i class="material-icons">add_circle</i>
-                </button>
-            </td>
-        </tr>
+                        <i class="material-icons">add_circle</i>
+                    </button>
+                </td>
+            </tr>
+        }
     </table>
     <label>Total time: @Model.TotalTime</label>
 </div>

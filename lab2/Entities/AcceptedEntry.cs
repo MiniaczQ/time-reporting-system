@@ -10,7 +10,7 @@ namespace lab1.Entities
         public DateTime ReportMonth { get; set; }
 
         // Fields
-        public int Time { get; set; }
+        public int Time { get; set; } = 0;
 
         // Parents
         public virtual Report Report { get; set; }

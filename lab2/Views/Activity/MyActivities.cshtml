@@ -4,7 +4,8 @@
         <tr>
             <th>Activity</th>
             <th>Code</th>
-            <th>Subactivities</th>
+            <th>Budget left [min]</th>
+            <th>Subcodes</th>
             <th>Options</th>
         </tr>
         <tr><td colspan="4"><hr></td></tr>
@@ -19,6 +20,7 @@
                     {
                         <td rowspan="@rowspan">@activity.ActivityName</td>
                         <td rowspan="@rowspan">@activity.ActivityCode</td>
+                        <td rowspan="@rowspan">@(activity.Budget - activity.AcceptedEntries.Sum(a => a.Time))</td>
                     }
 
                     <td>@subcode.SubactivityCode</td>

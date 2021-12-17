@@ -11,7 +11,7 @@ namespace lab1.Models
     public class MyEntriesModel
     {
         public MyEntriesModel() { }
-        public MyEntriesModel(string username) : this(username, DateTime.Today) { }
+        public MyEntriesModel(string UserName) : this(UserName, DateTime.Today) { }
         public MyEntriesModel(string UserName, DateTime DateTime)
         {
             var Date = DateTime.Date;
@@ -29,9 +29,9 @@ namespace lab1.Models
                     .SelectMany(r => r.Entries)
                     .Where(e => e.Date == Date)
                     .Include(e => e.Activity)
-                    .Include(e => e.Report)
                     .OrderBy(e => e.Date)
                     .ToList();
+                this.Report = db.Reports.Where(r => r.ReportMonth == ReportMonth && r.UserName == UserName).FirstOrDefault();
             }
 
             this.Entries.ForEach(entry => this.TotalTime += entry.Time);
@@ -41,5 +41,6 @@ namespace lab1.Models
         public List<Entry> Entries { get; set; } = new();
         public int TotalTime { get; set; } = 0;
         public Entry SelectedEntry { get; set; }
+        public Report Report { get; set; }
     }
 }

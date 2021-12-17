@@ -17,6 +17,7 @@ namespace lab1.Models
                     .Where(a => a.ManagerName == username)
                     .Include(a => a.Subcodes)
                     .Include(a => a.Entries)
+                    .Include(a => a.AcceptedEntries)
                     .ToList();
             }
         }

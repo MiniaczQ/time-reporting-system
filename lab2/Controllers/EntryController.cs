@@ -164,10 +164,43 @@ namespace lab1.Controllers
             return RedirectToAction("MyEntries");
         }
 
+        [HttpGet]
+        public IActionResult MonthlySummary(DateTime? dayless)
+        {
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+            var Date = dayless ?? DateTime.Now;
+
+            return View(new MonthlySummaryModel(Date, UserName));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult LockMonth(DateTime dayless)
+        {
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+
+            var ReportMonth = dayless.Dayless();
+            var report = new Report { ReportMonth = ReportMonth, UserName = UserName, Frozen = true };
+            try
+            {
+                using (var db = new LabContext())
+                {
+                    db.Update(report);
+                    db.SaveChanges();
+                }
+            }
+            catch (DbUpdateException)
+            { }
+            return RedirectToAction("MonthlySummary", new { dayless = dayless });
         }
     }
 }
