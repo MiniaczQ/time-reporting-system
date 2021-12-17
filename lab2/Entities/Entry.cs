@@ -29,5 +29,8 @@ namespace lab1.Entities
         public virtual Report Report { get; set; }
         public virtual Activity Activity { get; set; }
         public virtual Subcode Subcode { get; set; }
+
+        // Concurrency
+        public byte[] Timestamp { get; set; }
     }
 }

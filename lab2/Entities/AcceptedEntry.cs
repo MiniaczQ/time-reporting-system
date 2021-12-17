@@ -15,5 +15,8 @@ namespace lab1.Entities
         // Parents
         public virtual Report Report { get; set; }
         public virtual Activity Activity { get; set; }
+
+        // Concurrency
+        public byte[] Timestamp { get; set; }
     }
 }

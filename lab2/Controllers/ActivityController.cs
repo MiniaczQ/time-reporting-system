@@ -82,7 +82,18 @@ namespace lab1.Controllers
                     db.Update(acceptedEntry);
                 else
                     db.Add(acceptedEntry);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    foreach (var ce in ex.Entries)
+                    {
+                        var databaseValues = ce.GetDatabaseValues();
+                        ce.OriginalValues.SetValues(databaseValues);
+                    }
+                }
             }
             return RedirectToAction("ActivityInfo", new { ActivityCode = ActivityCode });
         }
