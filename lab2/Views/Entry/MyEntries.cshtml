@@ -63,7 +63,7 @@
                 </td>
             </tr>
         }
-        @if (!Model.Report.Frozen)
+        @if (!(Model.Report?.Frozen ?? false))
         {
             <tr style="font-size: 0">
                 <td colspan=6>
