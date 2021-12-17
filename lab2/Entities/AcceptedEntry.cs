@@ -5,8 +5,8 @@ namespace lab1.Entities
     public class AcceptedEntry
     {
         // Composite key
-        public String UserName { get; set; }
-        public String ActivityCode { get; set; }
+        public string UserName { get; set; }
+        public string ActivityCode { get; set; }
         public DateTime ReportMonth { get; set; }
 
         // Fields

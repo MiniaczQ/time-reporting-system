@@ -6,7 +6,7 @@ namespace lab1.Entities
     public class User
     {
         // Key
-        public String UserName { get; set; }
+        public string UserName { get; set; }
 
         // Children
         public virtual ICollection<Activity> Activities { get; set; }

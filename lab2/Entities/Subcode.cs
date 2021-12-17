@@ -6,8 +6,8 @@ namespace lab1.Entities
     public class Subcode
     {
         // Composite key
-        public String SubactivityCode { get; set; }
-        public String ActivityCode { get; set; }
+        public string SubactivityCode { get; set; }
+        public string ActivityCode { get; set; }
 
         // Parents
         public virtual Activity Activity { get; set; }

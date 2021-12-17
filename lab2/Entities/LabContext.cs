@@ -19,7 +19,7 @@ namespace lab1.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder
-                .UseNpgsql("Server=localhost;Port=5432;Database=jmotyka;User Id=jmotyka;Password=jmotyka")
+                .UseNpgsql("Server=localhost;Port=5432;Database=jmotyka;User Id=jmotyka;Password=jmotyka;Include Error Detail=true")
                 .UseSnakeCaseNamingConvention();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,15 +33,20 @@ namespace lab1.Entities
             modelBuilder.Entity<AcceptedEntry>()
                 .HasOne(a => a.Report)
                 .WithMany(r => r.AcceptedEntries)
-                .HasForeignKey(a => new { a.ReportMonth, a.UserName });
+                .HasForeignKey(a => new { a.ReportMonth, a.UserName })
+                .IsRequired();
             modelBuilder.Entity<AcceptedEntry>()
                 .HasOne(a => a.Activity)
                 .WithMany(a => a.AcceptedEntries)
-                .HasForeignKey(a => a.ActivityCode);
+                .HasForeignKey(a => a.ActivityCode)
+                .IsRequired();
 
             // Activity
             modelBuilder.Entity<Activity>()
                 .HasKey(a => a.ActivityCode);
+            modelBuilder.Entity<Activity>()
+                .Property(a => a.ActivityName)
+                .IsRequired();
             modelBuilder.Entity<Activity>()
                 .Property(a => a.Budget)
                 .IsRequired();
@@ -54,11 +59,15 @@ namespace lab1.Entities
             modelBuilder.Entity<Activity>()
                 .HasOne(a => a.Manager)
                 .WithMany(u => u.Activities)
-                .HasForeignKey(a => a.ManagerName);
+                .HasForeignKey(a => a.ManagerName)
+                .IsRequired();
 
             // Entry
             modelBuilder.Entity<Entry>()
-                .HasKey(e => new { e.ReportMonth, e.UserName, e.ActivityCode, e.SubactivityCode });
+                .HasKey(e => new { e.ReportMonth, e.UserName, e.ActivityCode, e.EntryPid });
+            modelBuilder.Entity<Entry>()
+                .Property(e => e.EntryPid)
+                .ValueGeneratedOnAdd();
             modelBuilder.Entity<Entry>()
                 .Property(e => e.Date)
                 .IsRequired();
@@ -72,9 +81,15 @@ namespace lab1.Entities
                 .WithMany(s => s.Entries)
                 .HasForeignKey(e => new { e.ActivityCode, e.SubactivityCode });
             modelBuilder.Entity<Entry>()
+                .HasOne(e => e.Activity)
+                .WithMany(s => s.Entries)
+                .HasForeignKey(e => e.ActivityCode)
+                .IsRequired();
+            modelBuilder.Entity<Entry>()
                 .HasOne(e => e.Report)
                 .WithMany(r => r.Entries)
-                .HasForeignKey(e => new { e.ReportMonth, e.UserName });
+                .HasForeignKey(e => new { e.ReportMonth, e.UserName })
+                .IsRequired();
 
             // Report
             modelBuilder.Entity<Report>()
@@ -84,7 +99,8 @@ namespace lab1.Entities
             modelBuilder.Entity<Report>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reports)
-                .HasForeignKey(r => r.UserName);
+                .HasForeignKey(r => r.UserName)
+                .IsRequired();
 
             // Subcode
             modelBuilder.Entity<Subcode>()
@@ -92,7 +108,8 @@ namespace lab1.Entities
             modelBuilder.Entity<Subcode>()
                 .HasOne(s => s.Activity)
                 .WithMany(a => a.Subcodes)
-                .HasForeignKey(s => s.ActivityCode);
+                .HasForeignKey(s => s.ActivityCode)
+                .IsRequired();
 
             // User
             modelBuilder.Entity<User>()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using lab1.Datetime;
 
 namespace lab1.Entities
 {
@@ -10,12 +11,12 @@ namespace lab1.Entities
         public DateTime ReportMonth
         {
             get => _ReportMonth;
-            set => _ReportMonth = new DateTime(value.Year, value.Month, 1);
+            set => _ReportMonth = value.Dayless();
         }
-        public String UserName { get; set; }
+        public string UserName { get; set; }
 
         // Fields
-        public bool Frozen { get; set; }
+        public bool Frozen { get; set; } = false;
 
         // Parents
         public virtual User User { get; set; }
