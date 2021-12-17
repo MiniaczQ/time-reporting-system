@@ -1,0 +1,60 @@
+﻿@using lab1.Datetime
+@model ActivityInfoModel
+<div class="text-center">
+    <table style="width: 100%">
+        <tr>
+            <td style="font-size: 200%">Project: @Model.Activity.ActivityName</td>
+            <td style="font-size: 200%">Code: @Model.Activity.ActivityCode</td>
+        </tr>
+    </table>
+    <hr>
+    <table style="width: 100%">
+        <tr>
+            <th>User</th>
+            <th>Month</th>
+            <th>Subcode</th>
+            <th>Supposed time</th>
+            <th>Total supposed time</th>
+            <th>Accepted time</th>
+        </tr>
+        <tr><td colspan="6"><hr></td></tr>
+        @foreach (var quartet in Model.Quartets)
+        {
+            bool firstIter = true;
+            int rowspan = quartet.Entries.Count();
+            @foreach (var entry in quartet.Entries)
+            {
+                <tr>
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan">@quartet.UserName</td>
+                        <td rowspan="@rowspan">@quartet.ReportMonth.DaylessString()</td>
+                    }
+
+                    <td>@entry.SubactivityCode</td>
+                    <td>@entry.Time</td>
+
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan">@quartet.Entries.Sum(e => e.Time)</td>
+                        <td rowspan="@rowspan">
+                            <form action="UpdateTime" method="post">
+                                <input type="hidden" name="ActivityCode", value=@Model.Activity.ActivityCode>
+                                <input type="hidden" name="UserName", value=@quartet.UserName>
+                                <input type="hidden" name="ReportMonth", value=@quartet.ReportMonth>
+                                <input type="number" name="Time" value=@(quartet.AcceptedEntry?.Time ?? 0)>
+                                <button type="submit" style="border: none; background-color: transparent">
+                                    <i class="material-icons">check_circle</i>
+                                </button>
+                            </form>
+                        </td>
+                    }
+                    @{
+                        firstIter = false;
+                    }
+                </tr>
+            }
+            <tr><td colspan="6"><hr></td></tr>
+        }
+    </table>
+</div>

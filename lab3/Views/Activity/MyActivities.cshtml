@@ -1,0 +1,59 @@
+﻿@model MyActivitiesModel
+<div class="text-center">
+    <table style="width: 100%">
+        <tr>
+            <th>Activity</th>
+            <th>Code</th>
+            <th>Budget left [min]</th>
+            <th>Subcodes</th>
+            <th>Options</th>
+        </tr>
+        <tr><td colspan="5"><hr></td></tr>
+        @foreach (var activity in Model.Activities)
+        {
+            bool firstIter = true;
+            int rowspan = activity.Subcodes.Count();
+            @foreach (var subcode in activity.Subcodes)
+            {
+                <tr>
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan">@activity.ActivityName</td>
+                        <td rowspan="@rowspan">@activity.ActivityCode</td>
+                        <td rowspan="@rowspan">@(activity.Budget - activity.AcceptedEntries.Sum(a => a.Time))</td>
+                    }
+
+                    <td>@subcode.SubactivityCode</td>
+
+                    @if (firstIter)
+                    {
+                        <td rowspan="@rowspan" style="font-size: 0">
+                            @{
+                                var infoUrl = Url.Action("ActivityInfo", new { ActivityCode = activity.ActivityCode });
+                                var deactivateUrl = Url.Action("Deactivate", new { ActivityCode = activity.ActivityCode });
+                            }
+                            <form style="display: inline-block" method="get" action="ActivityInfo">
+                                <input type="hidden" name="ActivityCode" value=@activity.ActivityCode>
+                                <button type="submit" style="border: none; background-color: transparent">
+                                    <i class="material-icons">fact_check</i>
+                                </button>
+                            </form>
+                            @if (activity.Active) {
+                                <form style="display: inline-block" method="post" action="Deactivate">
+                                    <input type="hidden" name="ActivityCode" value=@activity.ActivityCode>
+                                    <button type="submit" style="border: none; background-color: transparent">
+                                        <i class="material-icons">lock</i>
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                    }
+                    @{
+                        firstIter = false;
+                    }
+                </tr>
+            }
+            <tr><td colspan="5"><hr></td></tr>
+        }
+    </table>
+</div>

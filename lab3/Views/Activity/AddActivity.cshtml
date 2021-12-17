@@ -1,0 +1,28 @@
+﻿@model AddActivityModel
+<div class="text-center">
+    @using (Html.BeginForm("PostAddActivity", "Activity", null, FormMethod.Post, true, null))
+    {
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>@Html.EditorFor(a => a.Activity.ActivityName)</td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td>@Html.EditorFor(a => a.Activity.ActivityCode)</td>
+            </tr>
+            <tr>
+                <td>Subactivities</td>
+                <td>@Html.EditorFor(a => a.SubcodesString)</td>
+            </tr>
+            <tr>
+                <td>Budget</td>
+                <td>@Html.EditorFor(a => a.Activity.Budget)</td>
+            </tr>
+            <tr>
+                <td><button type="submit" value="Cancel" onclick="history.back()">Cancel</button></td>
+                <td><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    }
+</div>

@@ -1,0 +1,48 @@
+﻿@model MonthlySummaryModel
+<div class="text-center">
+    <form>
+        <h1 class="display-4">Projects for
+            <input type="month" name="dayless" value=@Model.Report.ReportMonth.ToString("yyyy-MM")
+                onchange="this.form.submit()">
+        </h1>
+    </form>
+    <br>
+    <table style="width: 100%">
+        <tr>
+            <th style="width: 25%">Project name</th>
+            <th style="width: 25%">My entries</th>
+            <th style="width: 25%">Total time [min]</th>
+            <th style="width: 25%">Accepted time [min]</th>
+        </tr>
+        @foreach (var triplet in Model.Triplets)
+        {
+            <tr>
+                <td>@triplet.Activity.ActivityName</td>
+                <td>@triplet.Entries.Count()</td>
+                <td>@triplet.Entries.Sum(e => e.Time)</td>
+                @if (triplet.AcceptedEntry != null)
+                {
+                    <td>@triplet.AcceptedEntry.Time</td>
+                }
+                else
+                {
+                    <td>--</td>
+                }
+            </tr>
+        }
+    </table>
+    <br>
+    @if (!Model.Report.Frozen)
+    {
+        <form action=@Url.Action("LockMonth", "Entry") method="post">
+            <input type="hidden" name="dayless" value=@Model.Report.ReportMonth.ToString("yyyy-MM")>
+            <button style="display: inline-block; border: none; background-color: transparent">
+                <i class="material-icons">lock</i>
+            </button>
+        </form>
+    }
+    else
+    {
+        <text>Month locked</text>
+    }
+</div>
