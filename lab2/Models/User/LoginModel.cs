@@ -31,6 +31,6 @@ namespace lab1.Models
         }
 
         public List<SelectListItem> UserList = new();
-        public String Message = "";
+        public string Message = "";
     }
 }
