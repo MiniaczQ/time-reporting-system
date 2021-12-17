@@ -26,26 +26,81 @@ namespace lab1.Controllers
         [HttpGet]
         public IActionResult MyEntries(DateTime? date)
         {
-            var username = Request.Cookies["user"];
-            if (username == null)
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
                 return RedirectToAction("Login", "User");
             if (date.HasValue)
-                return View(new MyEntriesModel(username, date.Value));
+                return View(new MyEntriesModel(UserName, date.Value));
             else
-                return View(new MyEntriesModel(username));
+                return View(new MyEntriesModel(UserName));
         }
 
         [HttpGet]
-        public IActionResult ModifyEntry(Entry entry)
+        public IActionResult EntryInfo(MyEntriesModel entryModel)
         {
-            return View("UpsertEntry", new UpsertEntryModel(entry));
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+
+            var entry = entryModel.SelectedEntry;
+            entry.UserName = UserName;
+
+            Entry e;
+            using (var db = new LabContext())
+            {
+                e = db.Entries
+                    .Where(e
+                        => e.UserName == entry.UserName
+                        && e.ReportMonth == entry.ReportMonth
+                        && e.ActivityCode == entry.ActivityCode
+                        && e.EntryPid == entry.EntryPid)
+                    .Include(e => e.Activity)
+                    .FirstOrDefault();
+            }
+            return View(e);
+        }
+
+        [HttpGet]
+        public IActionResult ModifyEntry(MyEntriesModel entryModel)
+        {
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+
+            var entry = entryModel.SelectedEntry;
+            entry.UserName = UserName;
+
+            Entry e;
+            using (var db = new LabContext())
+            {
+                e = db.Entries
+                    .Where(e
+                        => e.UserName == entry.UserName
+                        && e.ReportMonth == entry.ReportMonth
+                        && e.ActivityCode == entry.ActivityCode
+                        && e.EntryPid == entry.EntryPid)
+                    .Include(e => e.Activity)
+                    .FirstOrDefault();
+            }
+            return View("UpsertEntry", new UpsertEntryModel(e));
         }
 
         [HttpPost]
         public IActionResult PostModifyEntry(UpsertEntryModel entryModel)
         {
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+
             var entry = entryModel.Entry;
-            System.Console.WriteLine(entry.SubactivityCode);
+            entry.UserName = UserName;
+            entry.Activity = null;
+
+            using (var db = new LabContext())
+            {
+                db.Update(entry);
+                db.SaveChanges();
+            }
             return RedirectToAction("MyEntries");
         }
 
@@ -87,6 +142,24 @@ namespace lab1.Controllers
             {
                 System.Console.WriteLine(e.ToString());
                 return RedirectToAction("MyEntries");
+            }
+            return RedirectToAction("MyEntries");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteEntry(MyEntriesModel entriesModel)
+        {
+            var UserName = Request.Cookies["user"];
+            if (UserName == null)
+                return RedirectToAction("Login", "User");
+
+            var entry = entriesModel.SelectedEntry;
+            entry.UserName = UserName;
+
+            using (var db = new LabContext())
+            {
+                db.Remove(entry);
+                db.SaveChanges();
             }
             return RedirectToAction("MyEntries");
         }

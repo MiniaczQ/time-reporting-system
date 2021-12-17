@@ -26,21 +26,18 @@
                     @if (firstIter)
                     {
                         <td rowspan="@rowspan" style="font-size: 0">
-                            <form action=@Url.Action("EntryInfo", "Entry") style="display: inline-block">
-                                <button type="submit" style="display: inline-block; border: none; background-color: transparent">
-                                    <i class="material-icons">info</i>
-                                </button>
-                            </form>
-                            <form action=@Url.Action("EditEntry", "Entry") style="display: inline-block">
+                            <form action=@Url.Action("ViewActivity") style="display: inline-block">
                                 <button style="display: inline-block; border: none; background-color: transparent">
-                                    <i class="material-icons">settings</i>
+                                    <i class="material-icons">fact_check</i>
                                 </button>
                             </form>
-                            <form method="post" action=@Url.Action("DeleteEntry", "Entry") style="display: inline-block">
-                                <button style="display: inline-block; border: none; background-color: transparent">
-                                    <i class="material-icons">delete</i>
-                                </button>
-                            </form>
+                            @if (activity.Active) {
+                                <form action=@Url.Action("Deactivate") style="display: inline-block">
+                                    <button type="submit" style="display: inline-block; border: none; background-color: transparent">
+                                        <i class="material-icons">lock</i>
+                                    </button>
+                                </form>
+                            }
                         </td>
                     }
                     @{

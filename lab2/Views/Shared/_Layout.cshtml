@@ -56,13 +56,12 @@
                                 asp-action="MonthlySummary">Monthly summary</a>
                                 </li>
                             </ul>
-                            <p style="float: righ">
-                                Logged in as: @user
-                            <form method="post" action="/User/Logout">
-                                <button type="submit">Logout
-                                </button>
-                            </form>
-                            </p>
+                            <div style="float: righ">
+                                <text style="display: inline-block">Logged in as: @user</text>
+                                <form style="display: inline-block" method="post" action="/User/Logout">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </div>
                         }
                     }
                 </div>

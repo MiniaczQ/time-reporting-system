@@ -13,7 +13,10 @@ namespace lab1.Models
             this.Entry = new Entry();
             using (var db = new LabContext())
             {
-                this.Activities = db.Activities.Select(a => new SelectListItem(a.ActivityName, a.ActivityCode)).ToList();
+                this.Activities = db.Activities
+                    .Where(a => a.Active)
+                    .Select(a => new SelectListItem(a.ActivityName, a.ActivityCode))
+                    .ToList();
             }
             this.Insert = true;
         }
@@ -28,10 +31,15 @@ namespace lab1.Models
             this.Entry = entry;
             this.Activities = new();
             this.Insert = false;
+            using (var db = new LabContext())
+            {
+                this.Subcodes = db.Subcodes.Where(s => s.ActivityCode == entry.ActivityCode).Select(s => new SelectListItem(s.SubactivityCode, s.SubactivityCode)).ToList();
+            }
         }
 
         public Entry Entry { get; set; }
         public List<SelectListItem> Activities { get; set; }
+        public List<SelectListItem> Subcodes { get; set; } = new();
         public bool Insert { get; set; }
     }
 }

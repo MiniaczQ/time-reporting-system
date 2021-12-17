@@ -10,8 +10,8 @@ namespace lab1.Models
 {
     public class MyEntriesModel
     {
+        public MyEntriesModel() { }
         public MyEntriesModel(string username) : this(username, DateTime.Today) { }
-
         public MyEntriesModel(string UserName, DateTime DateTime)
         {
             var Date = DateTime.Date;
@@ -40,5 +40,6 @@ namespace lab1.Models
         public DateTime Date { get; set; }
         public List<Entry> Entries { get; set; } = new();
         public int TotalTime { get; set; } = 0;
+        public Entry SelectedEntry { get; set; }
     }
 }

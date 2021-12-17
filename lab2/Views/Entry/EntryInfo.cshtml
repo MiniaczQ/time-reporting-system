@@ -1,36 +1,38 @@
-﻿<div class="text-center">
+﻿@using lab1.Entities
+@model Entry
+<div class="text-center">
     <table>
         <tr>
             <td>Project name</td>
-            <td>@Model.activity.name</td>
+            <td>@Model.Activity.ActivityName</td>
         </tr>
         <tr>
             <td>Project code</td>
-            <td>@Model.entry.code</td>
+            <td>@Model.ActivityCode</td>
         </tr>
         <tr>
             <td>Project subcode</td>
-            <td>@Model.entry.subcode</td>
+            <td>@Model.SubactivityCode</td>
         </tr>
         <tr>
             <td>Project manager</td>
-            <td>@Model.activity.manager</td>
+            <td>@Model.Activity.ManagerName</td>
         </tr>
         <tr>
             <td>Planned for</td>
-            <td>@Model.entry.date.ToShortDateString()</td>
+            <td>@Model.Date</td>
         </tr>
         <tr>
             <td>Expected time in minutes</td>
-            <td>@Model.entry.time</td>
+            <td>@Model.Time</td>
         </tr>
         <tr>
             <td>Person in charge</td>
-            <td>@Model.user</td>
+            <td>@Model.UserName</td>
         </tr>
         <tr>
             <td>Description</td>
-            <td>@Model.entry.description</td>
+            <td>@Model.Description</td>
         </tr>
     </table>
     <input type="button" value="Go back" onclick="history.back()">

@@ -19,26 +19,42 @@
         </tr>
         @foreach (var entry in Model.Entries)
         {
+            Model.SelectedEntry = entry;
             <tr>
                 <td>@entry.Activity.ActivityName</td>
                 <td>@entry.SubactivityCode</td>
                 <td>@entry.Time</td>
                 <td style="font-size: 0">
                     <form action=@Url.Action("EntryInfo", "Entry") style="display: inline-block">
+                        @Html.HiddenFor(m => m.SelectedEntry.UserName)
+                        @Html.HiddenFor(m => m.SelectedEntry.ReportMonth)
+                        @Html.HiddenFor(m => m.SelectedEntry.ActivityCode)
+                        @Html.HiddenFor(m => m.SelectedEntry.EntryPid)
                         <button type="submit" style="display: inline-block; border: none; background-color: transparent">
                             <i class="material-icons">info</i>
                         </button>
                     </form>
-                    <form action=@Url.Action("EditEntry", "Entry") style="display: inline-block">
-                        <button style="display: inline-block; border: none; background-color: transparent">
-                            <i class="material-icons">settings</i>
-                        </button>
-                    </form>
-                    <form method="post" action=@Url.Action("DeleteEntry", "Entry") style="display: inline-block">
-                        <button style="display: inline-block; border: none; background-color: transparent">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </form>
+                    @if (!entry.Report.Frozen)
+                    {
+                        <form action=@Url.Action("ModifyEntry", "Entry") style="display: inline-block">
+                            @Html.HiddenFor(m => m.SelectedEntry.UserName)
+                            @Html.HiddenFor(m => m.SelectedEntry.ReportMonth)
+                            @Html.HiddenFor(m => m.SelectedEntry.ActivityCode)
+                            @Html.HiddenFor(m => m.SelectedEntry.EntryPid)
+                            <button style="display: inline-block; border: none; background-color: transparent">
+                                <i class="material-icons">settings</i>
+                            </button>
+                        </form>
+                        <form method="post" action=@Url.Action("DeleteEntry", "Entry") style="display: inline-block">
+                            @Html.HiddenFor(m => m.SelectedEntry.UserName)
+                            @Html.HiddenFor(m => m.SelectedEntry.ReportMonth)
+                            @Html.HiddenFor(m => m.SelectedEntry.ActivityCode)
+                            @Html.HiddenFor(m => m.SelectedEntry.EntryPid)
+                            <button style="display: inline-block; border: none; background-color: transparent">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    }
                 </td>
             </tr>
             <tr>
