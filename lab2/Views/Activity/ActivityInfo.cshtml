@@ -45,7 +45,7 @@
                                         <input type="hidden" name="UserName", value=@quartet.UserName>
                                         <input type="hidden" name="ReportMonth", value=@quartet.ReportMonth>
                                         @{
-                                            var code = System.Convert.ToBase64String(entry.Timestamp);
+                                            var code = System.Web.HttpUtility.HtmlEncode(entry.Timestamp);
                                         }
                                         <input type="hidden" name="Timestamp", value=@code>
                                         <input type="number" name="Time" value=@(quartet.AcceptedEntry?.Time ?? 0)>
