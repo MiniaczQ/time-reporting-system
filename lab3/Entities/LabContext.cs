@@ -40,6 +40,10 @@ namespace lab1.Entities
                 .WithMany(a => a.AcceptedEntries)
                 .HasForeignKey(a => a.ActivityCode)
                 .IsRequired();
+            modelBuilder.Entity<AcceptedEntry>()
+                .Property(a => a.Timestamp)
+                .IsRowVersion()
+                .IsRequired();
 
             // Activity
             modelBuilder.Entity<Activity>()
@@ -89,6 +93,10 @@ namespace lab1.Entities
                 .HasOne(e => e.Report)
                 .WithMany(r => r.Entries)
                 .HasForeignKey(e => new { e.ReportMonth, e.UserName })
+                .IsRequired();
+            modelBuilder.Entity<Entry>()
+                .Property(e => e.Timestamp)
+                .IsRowVersion()
                 .IsRequired();
 
             // Report
