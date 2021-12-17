@@ -19,20 +19,19 @@
             @:@Html.HiddenFor(m => m.Entry.ActivityCode)
             @:@Html.HiddenFor(m => m.Entry.Date)
             @:@Html.HiddenFor(m => m.Entry.ReportMonth)
-            @:@Html.HiddenFor(m => m.Entry.Timestamp)
         }
-        <table width="100%">
-            <tr>
-                <td>Date</td>
-                <td>@(
+            <table width="100%">
+                <tr>
+                    <td>Date</td>
+                    <td>@(
                 Model.Insert
                 ? Html.EditorFor(m => m.Entry.Date)
                 : Html.DisplayFor(m => m.Entry.Date)
                 )</td>
-            </tr>
-            <tr>
-                <td>Project</td>
-                <td>
+                </tr>
+                <tr>
+                    <td>Project</td>
+                    <td>
                     @if (Model.Insert)
                     {
                         @Html.DropDownListFor(m => m.Entry.ActivityCode, Model.Activities)
@@ -42,15 +41,15 @@
                         @Html.DisplayFor(m => m.Entry.Activity.ActivityName)
                         @Html.HiddenFor(m => m.Entry.Activity.ActivityName)
                     }
-                </td>
-            </tr>
-            <tr>
-                <td>Time</td>
-                <td>@Html.EditorFor(m => m.Entry.Time)</td>
-            </tr>
-            <tr>
-                <td>Subcode</td>
-                <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>@Html.EditorFor(m => m.Entry.Time)</td>
+                </tr>
+                <tr>
+                    <td>Subcode</td>
+                    <td>
                     @if (Model.Insert)
                     {
                         @Html.DropDownListFor(m => m.Entry.SubactivityCode, new List<SelectListItem>())
@@ -59,46 +58,46 @@
                     {
                         @Html.DropDownListFor(m => m.Entry.SubactivityCode, Model.Subcodes)
                     }
-                </td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>@Html.EditorFor(m => m.Entry.Description)</td>
-            </tr>
-        </table>
-        <input type="submit">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>@Html.EditorFor(m => m.Entry.Description)</td>
+                </tr>
+            </table>
+            <input type="submit">
     }
     <input type="button" value="Cancel" onclick="history.back()">
 </div>
 @if (Model.Insert)
 {
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            updateSubcodes();
-        })
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                updateSubcodes();
+            })
 
-        $("#Entry_ActivityCode").change(function () {
-            updateSubcodes();
-        });
-
-        var updateSubcodes = function () {
-            $.ajax({
-                url: '@Url.Action("Subcodes","Activity")',
-                type: 'GET',
-                data: {
-                    ActivityCode: $('#Entry_ActivityCode').val(),
-                },
-                success: function (data) {
-                    $('#Entry_SubactivityCode').find('option').remove()
-                    $(data).each(
-                        function (index, subcode) {
-                            $('#Entry_SubactivityCode').append('<option>' + subcode + '</option>')
-                        }
-                    );
-                },
-                error: function () { }
+            $("#Entry_ActivityCode").change(function () {
+                updateSubcodes();
             });
-        }
-    </script>
+
+            var updateSubcodes = function () {
+                $.ajax({
+                    url: '@Url.Action("Subcodes","Activity")',
+                    type: 'GET',
+                    data: {
+                        ActivityCode: $('#Entry_ActivityCode').val(),
+                    },
+                    success: function (data) {
+                        $('#Entry_SubactivityCode').find('option').remove()
+                        $(data).each(
+                            function (index, subcode) {
+                                $('#Entry_SubactivityCode').append('<option>' + subcode + '</option>')
+                            }
+                        );
+                    },
+                    error: function () { }
+                });
+            }
+        </script>
 }

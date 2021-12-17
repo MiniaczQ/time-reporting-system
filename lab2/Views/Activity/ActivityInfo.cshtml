@@ -44,10 +44,6 @@
                                         <input type="hidden" name="ActivityCode", value=@Model.Activity.ActivityCode>
                                         <input type="hidden" name="UserName", value=@quartet.UserName>
                                         <input type="hidden" name="ReportMonth", value=@quartet.ReportMonth>
-                                        @{
-                                            var code = System.Web.HttpUtility.HtmlEncode(entry.Timestamp);
-                                        }
-                                        <input type="hidden" name="Timestamp", value=@code>
                                         <input type="number" name="Time" value=@(quartet.AcceptedEntry?.Time ?? 0)>
                                         <button type="submit" style="border: none; background-color: transparent">
                                             <i class="material-icons">check_circle</i>
