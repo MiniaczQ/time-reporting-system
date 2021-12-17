@@ -19,7 +19,7 @@ namespace lab1.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder
-                .UseNpgsql("Server=localhost;Port=5432;Database=jmotyka;User Id=jmotyka;Password=jmotyka;Include Error Detail=true")
+                .UseMySql("server=localhost;user=jmotyka;password=jmotyka;database=jmotyka", new MySqlServerVersion(new Version(8, 0, 27)))
                 .UseSnakeCaseNamingConvention();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

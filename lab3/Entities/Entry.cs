@@ -31,6 +31,6 @@ namespace lab1.Entities
         public virtual Subcode Subcode { get; set; }
 
         // Concurrency
-        public Byte[] Timestamp { get; set; }
+        public byte[] Timestamp { get; set; }
     }
 }

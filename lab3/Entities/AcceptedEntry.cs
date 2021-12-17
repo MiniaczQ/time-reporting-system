@@ -17,6 +17,6 @@ namespace lab1.Entities
         public virtual Activity Activity { get; set; }
 
         // Concurrency
-        public Byte[] Timestamp { get; set; }
+        public byte[] Timestamp { get; set; }
     }
 }

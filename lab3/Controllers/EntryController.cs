@@ -61,13 +61,13 @@ namespace lab1.Controllers
         }
 
         [HttpGet]
-        public IActionResult ModifyEntry(MyEntriesModel entryModel)
+        public IActionResult ModifyEntry(MyEntriesModel entryModel, Entry MayBeEntry)
         {
             var UserName = Request.Cookies["user"];
             if (UserName == null)
                 return RedirectToAction("Login", "User");
 
-            var entry = entryModel.SelectedEntry;
+            var entry = entryModel?.SelectedEntry ?? MayBeEntry;
             entry.UserName = UserName;
 
             Entry e;
@@ -98,8 +98,26 @@ namespace lab1.Controllers
 
             using (var db = new LabContext())
             {
-                db.Update(entry);
-                db.SaveChanges();
+                try
+                {
+                    db.Update(entry);
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    foreach (var ce in ex.Entries)
+                    {
+                        var databaseValues = ce.GetDatabaseValues();
+                        ce.OriginalValues.SetValues(databaseValues);
+                    }
+                    var e = db.Entries.Where(e
+                        => e.UserName == entry.UserName
+                        && e.ReportMonth == entry.ReportMonth
+                        && e.ActivityCode == entry.ActivityCode
+                        && e.EntryPid == entry.EntryPid)
+                        .FirstOrDefault();
+                    return RedirectToAction("ModifyEntry", e);
+                }
             }
             return RedirectToAction("MyEntries");
         }
@@ -161,6 +179,7 @@ namespace lab1.Controllers
                 db.Remove(entry);
                 db.SaveChanges();
             }
+
             return RedirectToAction("MyEntries");
         }
 
