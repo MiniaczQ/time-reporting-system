@@ -1,3 +1,0 @@
-bawi się node version managerem bo ma jakieś wymogi wersji
-ma pobrany z gita ale chyba nie zbudowany? na pewno nie w ścieżce
-(był zbudowany ale nie w ścieżce XDDD, called it)
