@@ -1,3 +1,4 @@
+using lab4.Utility;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace lab4.Persistence.Schemas
@@ -5,7 +6,8 @@ namespace lab4.Persistence.Schemas
     public class AcceptedActivity
     {
         public string UserName { get; set; }
-        public DateTime ReportMonth { get; set; }
+        private DateTime _ReportMonth;
+        public DateTime ReportMonth { get => _ReportMonth; set => _ReportMonth = value.Dayless(); }
         public virtual Report Report { get; set; }
         public string ProjectCode { get; set; }
         public virtual Project Project { get; set; }

@@ -1,5 +1,3 @@
-using System;
-
 namespace lab4.Utility
 {
     public static class DateTimeExt

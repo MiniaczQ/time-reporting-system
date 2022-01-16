@@ -1,8 +1,12 @@
+using lab4.Persistence;
+using lab4.Mapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -16,12 +20,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.MapControllers();
+app.MapFallbackToFile("index.html"); ;
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");;
+using (var ctx = new DbCtx())
+{
+    var available = ctx.Database.CanConnect();
+    if (!available)
+        throw new Exception("Database unavailable!");
+    ctx.Database.EnsureCreated();
+}
 
 app.Run();

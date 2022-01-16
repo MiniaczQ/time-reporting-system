@@ -14,8 +14,11 @@ namespace lab4.Persistence.Schemas
         }
         public static void Seeder(EntityTypeBuilder<User> builder)
         {
-            builder
-                .HasData(new User { UserName = "John" });
+            builder.HasData(
+                new User { UserName = "Jeremy Clarkson" },
+                new User { UserName = "James May" },
+                new User { UserName = "Richard Hammond" }
+            );
         }
     }
 }

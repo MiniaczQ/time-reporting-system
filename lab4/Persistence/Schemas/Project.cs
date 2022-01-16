@@ -37,6 +37,9 @@ namespace lab4.Persistence.Schemas
         }
         public static void Seeder(EntityTypeBuilder<Project> builder)
         {
+            builder.HasData(
+                new Project { ProjectCode = "TEST", ProjectName = "Test", Budget = 120, ManagerName = "Jeremy Clarkson" }
+            );
         }
     }
 }

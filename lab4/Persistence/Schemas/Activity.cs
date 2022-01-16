@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using lab4.Utility;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace lab4.Persistence.Schemas
@@ -6,7 +7,8 @@ namespace lab4.Persistence.Schemas
     public class Activity
     {
         public string UserName { get; set; }
-        public DateTime ReportMonth { get; set; }
+        private DateTime _ReportMonth;
+        public DateTime ReportMonth { get => _ReportMonth; set => _ReportMonth = value.Dayless(); }
         public virtual Report Report { get; set; }
         public string ProjectCode { get; set; }
         public virtual Project Project { get; set; }
@@ -14,7 +16,6 @@ namespace lab4.Persistence.Schemas
         public virtual Subproject Subproject { get; set; }
         public int ActivityPid { get; set; }
         private DateTime _Date;
-        [DataType(DataType.Date)]
         public DateTime Date { get => _Date; set => _Date = value.Date; }
         public int Time { get; set; }
         public string Description { get; set; }
@@ -55,6 +56,9 @@ namespace lab4.Persistence.Schemas
         }
         public static void Seeder(EntityTypeBuilder<Activity> builder)
         {
+            builder.HasData(
+                new Activity { UserName = "Jeremy Clarkson", ReportMonth = DateTime.Now, ProjectCode = "TEST", Time = 60, Description = "Experiment", ActivityPid = -1, Date = DateTime.Now }
+            );
         }
     }
 }
