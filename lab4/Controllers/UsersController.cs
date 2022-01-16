@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using lab4.Models;
+using lab4.ActionFilters;
 
 namespace lab4.Controllers;
 
@@ -10,6 +11,7 @@ public class UsersController : BaseController
     {
     }
 
+    [ReqLoggedOut]
     [HttpGet("all")]
     public IActionResult ListUsers()
     {
@@ -19,8 +21,7 @@ public class UsersController : BaseController
     [HttpPost("login")]
     public IActionResult Login(User user)
     {
-
-
-        return Ok(Mapper.Map<List<User>>(DbManager.AllUsers()));
+        Response.Cookies.Append(userNameCookie, null, userNameCookieOpts);
+        return Ok();
     }
 }

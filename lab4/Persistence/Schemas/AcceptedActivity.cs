@@ -32,6 +32,15 @@ namespace lab4.Persistence.Schemas
         }
         public static void Seeder(EntityTypeBuilder<AcceptedActivity> builder)
         {
+            builder.HasData(
+                new AcceptedActivity
+                {
+                    ReportMonth = new DateTime(2022, 1, 1),
+                    UserName = "Jeremy Clarkson",
+                    ProjectCode = "WB",
+                    Time = 5
+                }
+            );
         }
     }
 }

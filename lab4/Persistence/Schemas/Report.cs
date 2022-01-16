@@ -27,7 +27,23 @@ namespace lab4.Persistence.Schemas
         public static void Seeder(EntityTypeBuilder<Report> builder)
         {
             builder.HasData(
-                new Report { ReportMonth = DateTime.Now, UserName = "Jeremy Clarkson" }
+                new Report
+                {
+                    ReportMonth = new DateTime(2022, 1, 1),
+                    UserName = "Jeremy Clarkson",
+                    Frozen = true
+                },
+                new Report
+                {
+                    ReportMonth = new DateTime(2022, 1, 1),
+                    UserName = "James May"
+                },
+                new Report
+                {
+                    ReportMonth = new DateTime(2022, 1, 1),
+                    UserName = "Richard Hammond",
+                    Frozen = true
+                }
             );
         }
     }

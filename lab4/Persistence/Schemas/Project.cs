@@ -38,7 +38,35 @@ namespace lab4.Persistence.Schemas
         public static void Seeder(EntityTypeBuilder<Project> builder)
         {
             builder.HasData(
-                new Project { ProjectCode = "TEST", ProjectName = "Test", Budget = 120, ManagerName = "Jeremy Clarkson" }
+                new Project
+                {
+                    ProjectCode = "AUTO",
+                    ProjectName = "Car go road",
+                    Budget = 60,
+                    ManagerName = "Jeremy Clarkson"
+                },
+                new Project
+                {
+                    ProjectCode = "F1",
+                    ProjectName = "Car go fast",
+                    Budget = 120,
+                    ManagerName = "James May"
+                },
+                new Project
+                {
+                    ProjectCode = "TESLA",
+                    ProjectName = "Car go space",
+                    Budget = 240,
+                    ManagerName = "Richard Hammond"
+                },
+                new Project
+                {
+                    ProjectCode = "WB",
+                    ProjectName = "Wheel Barrel",
+                    Budget = 30,
+                    ManagerName = "Richard Hammond",
+                    Active = false,
+                }
             );
         }
     }

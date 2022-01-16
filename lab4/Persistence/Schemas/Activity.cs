@@ -57,7 +57,102 @@ namespace lab4.Persistence.Schemas
         public static void Seeder(EntityTypeBuilder<Activity> builder)
         {
             builder.HasData(
-                new Activity { UserName = "Jeremy Clarkson", ReportMonth = DateTime.Now, ProjectCode = "TEST", Time = 60, Description = "Experiment", ActivityPid = -1, Date = DateTime.Now }
+                new Activity
+                {
+                    ActivityPid = -1,
+                    UserName = "Jeremy Clarkson",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "AUTO",
+                    Date = new DateTime(2022, 01, 20),
+                    Time = 35,
+                    Description = "desc 1",
+                },
+                new Activity
+                {
+                    ActivityPid = -2,
+                    UserName = "Jeremy Clarkson",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "AUTO",
+                    SubprojectCode = "Wheels",
+                    Date = new DateTime(2022, 01, 21),
+                    Time = 75,
+                    Description = "desc 2",
+                },
+                new Activity
+                {
+                    ActivityPid = -3,
+                    UserName = "James May",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "F1",
+                    SubprojectCode = "Engine",
+                    Date = new DateTime(2022, 01, 22),
+                    Time = 15,
+                    Description = "desc 3",
+                },
+                new Activity
+                {
+                    ActivityPid = -4,
+                    UserName = "James May",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "F1",
+                    SubprojectCode = "Speed",
+                    Date = new DateTime(2022, 01, 23),
+                    Time = 10,
+                    Description = "desc 4",
+                },
+                new Activity
+                {
+                    ActivityPid = -5,
+                    UserName = "Jeremy Clarkson",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "TESLA",
+                    SubprojectCode = "Jets",
+                    Date = new DateTime(2022, 01, 24),
+                    Time = 20,
+                    Description = "desc 5",
+                },
+                new Activity
+                {
+                    ActivityPid = -6,
+                    UserName = "Jeremy Clarkson",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "TESLA",
+                    Date = new DateTime(2022, 01, 25),
+                    Time = 30,
+                    Description = "desc 6",
+                },
+                new Activity
+                {
+                    ActivityPid = -7,
+                    UserName = "Richard Hammond",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "TESLA",
+                    SubprojectCode = "Speed",
+                    Date = new DateTime(2022, 01, 26),
+                    Time = 30,
+                    Description = "desc 7",
+                },
+                new Activity
+                {
+                    ActivityPid = -9,
+                    UserName = "Richard Hammond",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "WB",
+                    Date = new DateTime(2022, 01, 28),
+                    Time = 15,
+                    Description = "desc 9",
+                },
+                new Activity
+                {
+                    ActivityPid = -10,
+                    UserName = "Jeremy Clarkson",
+                    ReportMonth = new DateTime(2022, 01, 20),
+                    ProjectCode = "WB",
+                    SubprojectCode = "Wheel",
+                    Date = new DateTime(2022, 01, 29),
+                    Time = 10,
+                    Description = "desc 10",
+                }
             );
         }
     }
