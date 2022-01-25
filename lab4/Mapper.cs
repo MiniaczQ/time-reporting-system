@@ -6,7 +6,8 @@ namespace lab4.Mapper
     {
         public Mapper()
         {
-            CreateMap<Persistence.Schemas.User, Models.User>();
+            CreateMap<Persistence.Schemas.User, Models.UserAll>()
+                .ReverseMap();
         }
     }
 }

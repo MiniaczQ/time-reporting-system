@@ -30,7 +30,7 @@ namespace lab4.Controllers
 
             if (Request.Cookies.TryGetValue(userNameCookie, out string userName))
             {
-                LoggedInUser = DbManager.GetUser(new User { UserName = userName });
+                LoggedInUser = DbManager.GetUser(userName);
                 Response.Cookies.Append(userNameCookie, userName, userNameCookieOpts);
             }
             else

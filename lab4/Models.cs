@@ -1,6 +1,6 @@
 namespace lab4.Models
 {
-    public class User
+    public class UserAll
     {
         public string UserName { get; set; }
     }
