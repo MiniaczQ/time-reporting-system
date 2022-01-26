@@ -20,7 +20,7 @@ export default function Login() {
                             userState.setState(user?.userName);
                         }
                     );
-                    navigate("/");
+                    navigate("/activities");
                 }
             )
         }
@@ -31,21 +31,20 @@ export default function Login() {
     }, []);
 
     return (
-        <>
-            <Form>
-                <Form.Group className="mb-3">
-                    <Form.Label>Username</Form.Label>
+        <div className="d-flex justify-content-center align-items-center h-100">
+            <div className="d-flex flex-column" style={{ width: "20%" }}>
+                <Form>
+                    <Button variant="primary" className="mb-2 w-100 justify-content-center" onClick={onSubmit}>
+                        Log in
+                    </Button>
                     <Form.Select required value={username} onChange={event => setUsername(event.target.value)}>
                         <option key={""} value="" hidden disabled selected>Select user</option>
                         {usernames.map(username => (
                             <option key={username} value={username}>{username}</option>
                         ))}
                     </Form.Select>
-                </Form.Group>
-                <Button variant="primary" className="mb-3" onClick={onSubmit}>
-                    Log in
-                </Button>
-            </Form>
-        </>
+                </Form>
+            </div>
+        </div>
     );
 }

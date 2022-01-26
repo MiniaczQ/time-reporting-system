@@ -7,6 +7,7 @@ import Register from './elements/Register';
 import Login from './elements/Login';
 import Layout from './layout/Layout';
 import Activities from './elements/Activities';
+import AcceptedActivities from './elements/AcceptedActivities';
 
 function App() {
     const [username, setUsername] = useState<UserName>(null);
@@ -27,9 +28,10 @@ function App() {
         <UserContext.Provider value={userState}>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route path="register" element={<Register />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="activities" element={<Activities />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/activities" element={<Activities />} />
+                    <Route path="/accepted_activities" element={<AcceptedActivities />} />
                 </Route>
             </Routes>
         </UserContext.Provider >

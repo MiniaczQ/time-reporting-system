@@ -14,9 +14,16 @@ public class ReportController : BaseController
     }
 
     [ReqLoggedIn]
-    [HttpGet("{date:DateTime}")]
-    public IActionResult All(DateTime date)
+    [HttpGet("activities/{date:DateTime}")]
+    public IActionResult ActivitiesReport(DateTime date)
     {
-        return Ok(DbManager.Report(LoggedInUser.UserName, date.Date));
+        return Ok(DbManager.ActivitiesReport(LoggedInUser.UserName, date.Date));
+    }
+
+    [ReqLoggedIn]
+    [HttpGet("accepted_activities")]
+    public IActionResult AcceptedActivitiesReport()
+    {
+        return Ok(DbManager.AcceptedActivitiesReport(LoggedInUser.UserName));
     }
 }

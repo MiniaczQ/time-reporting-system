@@ -8,10 +8,12 @@ export default class ApiRequest {
     static logout = () => apiFetch('/api/user/logout', 'POST');
     static me = () => apiFetch('/api/user/me', 'GET');
 
-    static report = (date: string) => apiFetch(`/api/report/${date}`, 'GET');
-    static add_activity = (activity: ActivityCreate) => apiFetch('/api/activity/add', 'POST', activity);
-    static edit_activity = (activity: ActivityAll) => apiFetch('/api/activity/edit', 'PATCH', activity);
-    static delete_activity = (activity: ActivityAll) => apiFetch('/api/activity/delete', 'DELETE', activity);
+    static activitiesReport = (date: string) => apiFetch(`/api/report/activities/${date}`, 'GET');
+    static addActivity = (activity: ActivityCreate) => apiFetch('/api/activity/add', 'POST', activity);
+    static editActivity = (activity: ActivityAll) => apiFetch('/api/activity/edit', 'PATCH', activity);
+    static deleteActivity = (activity: ActivityAll) => apiFetch('/api/activity/delete', 'DELETE', activity);
+
+    static acceptedActivitiesReport = () => apiFetch(`/api/report/accepted_activities`, 'GET');
 
     static projects = () => apiFetch(`/api/project/all`, 'GET');
     static subprojectCodes = (projectCode: string) => apiFetch(`/api/project/${projectCode}/subcodes`, 'GET');

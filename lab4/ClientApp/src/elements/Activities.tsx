@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import ApiRequest from "../ApiRequest";
 import { ActivityAll } from "../models/activity";
-import { ReportAll } from "../models/report";
+import { ActivitiesReport } from "../models/report";
 import { format } from 'date-fns'
 import AddActivity from "./AddActivity";
 import { DateState, DateContext } from "../contexts/DateContext";
@@ -11,11 +11,12 @@ import EditActivity from "./EditActivity";
 function ShowColumnNames() {
     return (
         <tr>
-            <td>Project</td>
-            <td>Subproject</td>
-            <td>Time [min]</td>
-            <td>Description</td>
-            <td>Options</td>
+            <td className="text-center" style={{ width: "20%" }}>Project</td>
+            <td className="text-center" style={{ width: "20%" }}>Subproject</td>
+            <td className="text-center" style={{ width: "20%" }}>Time [min]</td>
+            <td className="text-center" style={{ width: "20%" }}>Description</td>
+            <td style={{ width: "1px" }}></td>
+            <td className="text-center" style={{ width: "20%" }}>Options</td>
         </tr>
     );
 }
@@ -23,18 +24,19 @@ function ShowColumnNames() {
 function ShowActivity(onDelete: (activity: ActivityAll) => void, onEdit: (activity: ActivityAll) => void, activity: ActivityAll, frozen: boolean) {
     let options = frozen ?
         (<div style={{ opacity: 0.2 }}>Month frozen</div>) :
-        (<>
-            <Button onClick={_ => onEdit(activity)}>Edit</Button>
-            <Button onClick={_ => onDelete(activity)}>Delete</Button>
-        </>);
+        (<div className="d-flex justify-content-around">
+            <Button className="btn-warning" onClick={_ => onEdit(activity)}>Edit</Button>
+            <Button className="btn-danger" onClick={_ => onDelete(activity)}>Delete</Button>
+        </div>);
 
     return (
         <tr key={activity.activityPid}>
-            <td>{activity.projectName}</td>
-            <td>{activity.subprojectCode}</td>
-            <td>{activity.time}</td>
-            <td>{activity.description}</td>
-            <td>{options}</td>
+            <td className="text-center align-middle">{activity.projectName}</td>
+            <td className="text-center align-middle">{activity.subprojectCode}</td>
+            <td className="text-center align-middle">{activity.time}</td>
+            <td className="text-center align-middle">{activity.description}</td>
+            <td></td>
+            <td className="text-center align-middle">{options}</td>
         </tr>
     );
 }
@@ -42,7 +44,7 @@ function ShowActivity(onDelete: (activity: ActivityAll) => void, onEdit: (activi
 export default function Activities() {
     const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
     const [editing, setEditing] = useState<number | null>(null);
-    const [report, setReport] = useState<ReportAll>({
+    const [report, setReport] = useState<ActivitiesReport>({
         activities: [],
         frozen: false,
     });
@@ -61,43 +63,60 @@ export default function Activities() {
     }
 
     function onDelete(activity: ActivityAll) {
-        ApiRequest.delete_activity(activity).then(_ => {
+        ApiRequest.deleteActivity(activity).then(_ => {
             let temp = dateState.state;
             dateState.setState("0001-01-01");
             dateState.setState(temp);
         });
     }
 
+    const footer = report.frozen ?
+        <></> :
+        <tfoot>
+            <tr><AddActivity /></tr>
+        </tfoot>
+
+    function totalTime() {
+        let total = report.activities.map(a => a.time).reduce((total, current) => total += current, 0);
+        return `${total} ${total === 1 ? "minute" : "minutes"}`;
+    }
+
     useEffect(() => {
         if (dateState.state !== "0001-01-01")
-            ApiRequest.report(dateState.state).then((report: ReportAll) => {
+            ApiRequest.activitiesReport(dateState.state).then((report: ActivitiesReport) => {
                 report.activities.forEach(a => a.projectName = `${a.projectCode} - ${a.projectName}`);
                 setReport(report);
             });
     }, [dateState.state]);
 
     return (
-        <DateContext.Provider value={dateState}>
-            <Table bordered>
-                <thead>
-                    <tr>
-                        <td>
+        <div className="m-5">
+            <DateContext.Provider value={dateState}>
+                <h2>
+                    <div className="d-flex flex-grow justify-content-between mx-5">
+                        <div>
+                            <span>Activities for </span>
                             <input type="date" value={dateState.state} onChange={e => dateState.setState(e.target.value)} style={{ border: 'None', outline: 'None' }}></input>
-                        </td>
-                    </tr>
-                    <ShowColumnNames />
-                </thead>
-                <tbody>
-                    {report.activities.map(activity =>
-                        (editing === activity.activityPid) ?
-                            <EditActivity activity={activity} onCancelEdit={onCancelEdit} /> :
-                            ShowActivity(onDelete, onEdit, activity, report.frozen)
-                    )}
-                </tbody>
-                <tfoot>
-                    <tr><AddActivity /></tr>
-                </tfoot>
-            </Table>
-        </DateContext.Provider>
+                        </div>
+                        <span>{`Total time: ${totalTime()}`}</span>
+                        <span>{`Month state: ${report.frozen ? "Frozen" : "Active"}`}</span>
+
+                    </div>
+                </h2>
+                <Table bordered striped className="mt-5">
+                    <thead>
+                        <ShowColumnNames />
+                    </thead>
+                    <tbody>
+                        {report.activities.map(activity =>
+                            (editing === activity.activityPid) ?
+                                <EditActivity activity={activity} onCancelEdit={onCancelEdit} /> :
+                                ShowActivity(onDelete, onEdit, activity, report.frozen)
+                        )}
+                    </tbody>
+                    {footer}
+                </Table>
+            </DateContext.Provider>
+        </div>
     );
 }

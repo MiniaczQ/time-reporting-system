@@ -12,41 +12,39 @@ export default function Register() {
     const [error, setError] = useState<string | null>(null)
 
     function onSubmit(event: any) {
-        ApiRequest.register({ userName: username }).then(
-            (_) => {
-                ApiRequest.me().then(
-                    (user: UserAll) => {
-                        userState.setState(user?.userName);
-                    }
-                );
-                navigate("/");
-            },
-            (_) => {
-                setError("Username already in use!");
-            }
-        )
+        setError(null);
+        if (username != "") {
+            ApiRequest.register({ userName: username }).then(
+                (_) => {
+                    ApiRequest.me().then(
+                        (user: UserAll) => {
+                            userState.setState(user?.userName);
+                        }
+                    );
+                    navigate("/activities");
+                },
+                (_) => {
+                    setError("Username already in use!");
+                }
+            )
+        }
     }
 
-    let error_message = error ? (
-        <>
-            <Form.Group className="mb-3">
-                {error}
-            </Form.Group>
-        </>
-    ) : (<></>);
+    let error_message = error ?
+        (<p className="text-center mt-2" style={{ opacity: "60%", color: "red" }}>{error}</p>) :
+        (<></>);
 
     return (
-        <>
-            <Form>
-                <Form.Group className="mb-3">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control required type="text" onChange={event => setUsername(event.target.value)}></Form.Control>
-                </Form.Group>
-                <Button variant="primary" className="mb-3" onClick={onSubmit}>
-                    Register
-                </Button>
-                {error_message}
-            </Form>
-        </>
+        <div className="d-flex justify-content-center align-items-center h-100">
+            <div className="d-flex flex-column" style={{ width: "20%" }}>
+                <Form>
+                    <Button className="mb-2 w-100 justify-content-center" variant="primary" onClick={onSubmit}>
+                        Register
+                    </Button>
+                    <Form.Control required type="text" onChange={event => setUsername(event.target.value)} placeholder="Enter username"></Form.Control>
+                    {error_message}
+                </Form>
+            </div>
+        </div>
     );
 }

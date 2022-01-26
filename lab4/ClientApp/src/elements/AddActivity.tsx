@@ -33,7 +33,7 @@ export default function AddActivity() {
 
     function onSubmit() {
         if (activity.projectCode !== "") {
-            ApiRequest.add_activity(activity).then(_ => {
+            ApiRequest.addActivity(activity).then(_ => {
                 let temp = dateState.state;
                 dateState.setState("0001-01-01");
                 dateState.setState(temp);
@@ -85,9 +85,12 @@ export default function AddActivity() {
             <td>
                 <Form.Control type="text" value={activity.description} onChange={e => setDescription(e.target.value)}></Form.Control>
             </td>
+            <td></td>
             <td>
-                <Button onClick={_ => onSubmit()}>Submit</Button>
-                <Button onClick={_ => onClear()}>Clear</Button>
+                <div className="d-flex justify-content-around">
+                    <Button className="btn-success" onClick={_ => onSubmit()}>Add</Button>
+                    <Button className="btn-danger" onClick={_ => onClear()}>Clear</Button>
+                </div>
             </td>
         </>
     );

@@ -19,7 +19,7 @@ export default function EditActivity(properties: EditActivityProperties) {
     const setDescription = (description: string) => setActivity({ ...activity, description: description });
 
     function onConfirm() {
-        ApiRequest.edit_activity(activity).then(_ => {
+        ApiRequest.editActivity(activity).then(_ => {
             properties.onCancelEdit();
             let temp = dateState.state;
             dateState.setState("0001-01-01");
@@ -52,9 +52,12 @@ export default function EditActivity(properties: EditActivityProperties) {
             <td>
                 <Form.Control type="text" value={activity.description} onChange={e => setDescription(e.target.value)}></Form.Control>
             </td>
+            <td></td>
             <td>
-                <Button onClick={_ => onConfirm()}>Confirm</Button>
-                <Button onClick={_ => properties.onCancelEdit()}>Cancel</Button>
+                <div className="d-flex justify-content-around">
+                    <Button className="btn-success" onClick={_ => onConfirm()}>Confirm</Button>
+                    <Button className="btn-danger" onClick={_ => properties.onCancelEdit()}>Cancel</Button>
+                </div>
             </td>
         </tr>
     );

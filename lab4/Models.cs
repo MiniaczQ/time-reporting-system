@@ -25,7 +25,7 @@ namespace lab4.Models
         public string Description { get; set; }
     }
 
-    public class ReportAll
+    public class ActivitiesReport
     {
         public List<ActivityAll> Activities { get; set; }
         public bool Frozen { get; set; }
@@ -35,5 +35,19 @@ namespace lab4.Models
     {
         public string ProjectCode { get; set; }
         public string ProjectName { get; set; }
+    }
+
+    public class AcceptedActivityAll
+    {
+        public DateTime ReportMonth { get; set; }
+        public string ProjectCode { get; set; }
+        public string ProjectName { get; set; }
+        public int SubmitedTime { get; set; }
+        public int AcceptedTime { get; set; }
+    }
+
+    public class AcceptedActivitiesReport
+    {
+        public List<AcceptedActivityAll> AcceptedActivities { get; set; }
     }
 }

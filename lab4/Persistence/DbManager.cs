@@ -3,7 +3,6 @@ using lab4.Models;
 using lab4.Persistence.Schemas;
 using lab4.Utility;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace lab4.Persistence
 {
@@ -37,13 +36,14 @@ namespace lab4.Persistence
             DbCtx.SaveChanges();
         }
 
-        public ReportAll Report(string userName, DateTime date)
+        public ActivitiesReport ActivitiesReport(string userName, DateTime date)
         {
-            var report = DbCtx.Reports.Include(r => r.Activities).ThenInclude(a => a.Project).FirstOrDefault(p => p.ReportMonth == date.Dayless() && p.UserName == userName);
+            date = date.Date;
+            var report = DbCtx.Reports.Include(r => r.Activities.Where(a => a.Date == date)).ThenInclude(a => a.Project).FirstOrDefault(p => p.ReportMonth == date.Dayless() && p.UserName == userName);
             if (report == null)
-                return new ReportAll { Activities = new(), Frozen = false };
+                return new ActivitiesReport { Activities = new(), Frozen = false };
             var activities = Mapper.Map<List<ActivityAll>>(report.Activities);
-            return new ReportAll { Activities = activities, Frozen = report.Frozen };
+            return new ActivitiesReport { Activities = activities, Frozen = report.Frozen };
         }
 
         public void AddActivity(string userName, ActivityAdd add_activity)
@@ -101,6 +101,28 @@ namespace lab4.Persistence
         {
             var project = DbCtx.Projects.Include(p => p.Subprojects).FirstOrDefault(p => p.ProjectCode == projectCode);
             return project.Subprojects.AsEnumerable().Select(s => s.SubprojectCode).ToList();
+        }
+
+        public AcceptedActivitiesReport AcceptedActivitiesReport(string userName)
+        {
+            var acceptedActivities = DbCtx.AcceptedActivities
+                .Include(aa => aa.Report)
+                .ThenInclude(r => r.Activities)
+                .Include(aa => aa.Project)
+                .Where(aa => aa.UserName == userName)
+                .Select(aa => new AcceptedActivityAll
+                {
+                    ProjectCode = aa.ProjectCode,
+                    ReportMonth = aa.ReportMonth,
+                    ProjectName = aa.Project.ProjectName,
+                    SubmitedTime = aa.Report.Activities.Where(a => a.ProjectCode == aa.ProjectCode).Sum(a => a.Time),
+                    AcceptedTime = aa.Time,
+                }).ToList();
+
+            return new AcceptedActivitiesReport
+            {
+                AcceptedActivities = acceptedActivities
+            };
         }
 
         private DbCtx DbCtx = new DbCtx();
