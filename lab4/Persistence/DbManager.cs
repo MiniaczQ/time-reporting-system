@@ -63,7 +63,7 @@ namespace lab4.Persistence
                 activity.ActivityPid = null;
                 activity.UserName = userName;
                 activity.ReportMonth = reportMonth;
-                if (activity.SubprojectCode.Equals(""))
+                if (string.IsNullOrEmpty(activity.SubprojectCode))
                     activity.SubprojectCode = null;
                 DbCtx.Activities.Add(activity);
                 DbCtx.SaveChanges();
