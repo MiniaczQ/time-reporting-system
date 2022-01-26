@@ -76,7 +76,7 @@ namespace lab4.Persistence
 
             activity.UserName = userName;
             activity.ReportMonth = edit_activity.Date.Dayless();
-            if (activity.SubprojectCode.Equals(""))
+            if (string.IsNullOrEmpty(activity.SubprojectCode))
                 activity.SubprojectCode = null;
 
             DbCtx.Update(activity);
