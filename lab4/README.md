@@ -19,4 +19,4 @@ Krótki opis danych testowych:
  - Aktywności są wpisane w dni 25-27 stycznia 2022
  - Użytkownik `James May` ma aktywny miesiąc
  - Użytkownik `Richard Hammons` ma zablokowany miesiąc
- - Użytkownik `Jeremy Clarkson` ma zablokowany miesiąc i zaakceptowaną aktywność w ramach projektu
+ - Użytkownik `Jeremy Clarkson` ma zablokowany miesiąc i zaakceptowaną aktywność w ramach projektu (projekt też jest zablokowany)
