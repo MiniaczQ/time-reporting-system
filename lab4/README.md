@@ -13,7 +13,7 @@ Instrukcja uruchomienia:
 
 Aplikacja udostępnia port 5001 dla HTTPS, i port 5000 dla HTTP.
 
-* zadania mogą zająć do kilku minut, można je robić równolegle
+*zadania mogą zająć do kilku minut, można je robić równolegle
 
 Krótki opis danych testowych:
  - Aktywności są wpisane w dni 25-27 stycznia 2022
