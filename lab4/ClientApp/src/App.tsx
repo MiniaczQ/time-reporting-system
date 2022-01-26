@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
 import ApiRequest from './ApiRequest';
-import User from './models/user';
-import { UserContext, UserName, UserState } from './UserContext';
+import { UserAll } from './models/user';
+import { UserContext, UserName, UserState } from './contexts/UserContext';
 import Register from './elements/Register';
 import Login from './elements/Login';
 import Layout from './layout/Layout';
+import Activities from './elements/Activities';
 
 function App() {
     const [username, setUsername] = useState<UserName>(null);
@@ -18,18 +17,19 @@ function App() {
 
     useEffect(() => {
         ApiRequest.me().then(
-            (user: User) => {
-                userState.setState(user.userName);
+            (user: UserAll) => {
+                userState.setState(user?.userName);
             }
-        )
+        );
     }, [])
 
     return (
-        <UserContext.Provider value={userState} >
+        <UserContext.Provider value={userState}>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route path="register" element={<Register />} />
                     <Route path="login" element={<Login />} />
+                    <Route path="activities" element={<Activities />} />
                 </Route>
             </Routes>
         </UserContext.Provider >

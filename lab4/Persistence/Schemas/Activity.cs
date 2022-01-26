@@ -14,12 +14,11 @@ namespace lab4.Persistence.Schemas
         public virtual Project Project { get; set; }
         public string SubprojectCode { get; set; }
         public virtual Subproject Subproject { get; set; }
-        public int ActivityPid { get; set; }
+        public int? ActivityPid { get; set; }
         private DateTime _Date;
         public DateTime Date { get => _Date; set => _Date = value.Date; }
         public int Time { get; set; }
         public string Description { get; set; }
-        public byte[] Timestamp { get; set; }
         public static void Builder(EntityTypeBuilder<Activity> builder)
         {
             builder
@@ -38,7 +37,8 @@ namespace lab4.Persistence.Schemas
             builder
                 .HasOne(a => a.Subproject)
                 .WithMany(s => s.Activities)
-                .HasForeignKey(a => new { a.ProjectCode, a.SubprojectCode });
+                .HasForeignKey(a => new { a.ProjectCode, a.SubprojectCode })
+                .IsRequired(false);
             builder
                 .HasOne(a => a.Project)
                 .WithMany(p => p.Activities)
@@ -48,10 +48,6 @@ namespace lab4.Persistence.Schemas
                 .HasOne(a => a.Report)
                 .WithMany(r => r.Activities)
                 .HasForeignKey(a => new { a.ReportMonth, a.UserName })
-                .IsRequired();
-            builder
-                .Property(a => a.Timestamp)
-                .IsRowVersion()
                 .IsRequired();
         }
         public static void Seeder(EntityTypeBuilder<Activity> builder)

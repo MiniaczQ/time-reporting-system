@@ -1,15 +1,26 @@
+using AutoMapper;
+using lab4.Models;
 using lab4.Persistence.Schemas;
+using lab4.Utility;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace lab4.Persistence
 {
     public class DbManager
     {
-        public List<User> AllUsers()
+        public DbManager(IMapper mapper)
         {
-            return DbCtx.Users.ToList();
+            Mapper = mapper;
         }
 
-        public bool IsUser(User user)
+        public List<UserAll> AllUsers()
+        {
+            var users = DbCtx.Users.ToList();
+            return Mapper.Map<List<UserAll>>(users);
+        }
+
+        public bool IsUser(UserAll user)
         {
             return DbCtx.Users.Select(u => u.UserName == user.UserName).Any();
         }
@@ -19,12 +30,80 @@ namespace lab4.Persistence
             return DbCtx.Users.Find(userName);
         }
 
-        public void AddUser(User user)
+        public void AddUser(UserAll addUser)
         {
+            var user = Mapper.Map<User>(addUser);
             DbCtx.Users.Add(user);
             DbCtx.SaveChanges();
         }
 
+        public ReportAll Report(string userName, DateTime date)
+        {
+            var report = DbCtx.Reports.Include(r => r.Activities).ThenInclude(a => a.Project).FirstOrDefault(p => p.ReportMonth == date.Dayless() && p.UserName == userName);
+            if (report == null)
+                return new ReportAll { Activities = new(), Frozen = false };
+            var activities = Mapper.Map<List<ActivityAll>>(report.Activities);
+            return new ReportAll { Activities = activities, Frozen = report.Frozen };
+        }
+
+        public void AddActivity(string userName, ActivityAdd add_activity)
+        {
+            var activity = Mapper.Map<Activity>(add_activity);
+            var reportMonth = activity.Date.Dayless();
+            var report = DbCtx.Reports.Find(reportMonth, userName);
+            if (report == null)
+            {
+                report = new Report { ReportMonth = reportMonth, UserName = userName };
+                report = DbCtx.Reports.Add(report).Entity;
+                DbCtx.SaveChanges();
+            }
+
+            if (report.Frozen == false)
+            {
+                activity.ActivityPid = null;
+                activity.UserName = userName;
+                activity.ReportMonth = reportMonth;
+                if (activity.SubprojectCode.Equals(""))
+                    activity.SubprojectCode = null;
+                DbCtx.Activities.Add(activity);
+                DbCtx.SaveChanges();
+            }
+        }
+
+        public void EditActivity(string userName, ActivityAll edit_activity)
+        {
+            var activity = Mapper.Map<Activity>(edit_activity);
+
+            activity.UserName = userName;
+            activity.ReportMonth = edit_activity.Date.Dayless();
+            if (activity.SubprojectCode.Equals(""))
+                activity.SubprojectCode = null;
+
+            DbCtx.Update(activity);
+            DbCtx.SaveChanges();
+        }
+
+        public void DeleteActivity(string userName, ActivityAll delete_activity)
+        {
+            var activity = Mapper.Map<Activity>(delete_activity);
+            activity.UserName = userName;
+            activity.ReportMonth = activity.Date.Dayless();
+            DbCtx.Activities.Remove(activity);
+            DbCtx.SaveChanges();
+        }
+
+        public List<ProjectAll> Projects()
+        {
+            return DbCtx.Projects.Where(p => p.Active == true).Select(p => new ProjectAll { ProjectCode = p.ProjectCode, ProjectName = p.ProjectName }).ToList();
+        }
+
+        public List<string> SubprojectCodes(string projectCode)
+        {
+            var project = DbCtx.Projects.Include(p => p.Subprojects).FirstOrDefault(p => p.ProjectCode == projectCode);
+            return project.Subprojects.AsEnumerable().Select(s => s.SubprojectCode).ToList();
+        }
+
         private DbCtx DbCtx = new DbCtx();
+        private IMapper Mapper;
     }
 }

@@ -15,16 +15,16 @@ public class UserController : BaseController
 
     [ReqLoggedOut]
     [HttpGet("all")]
-    public IActionResult ListUsers()
+    public IActionResult All()
     {
-        return Ok(Mapper.Map<List<UserAll>>(DbManager.AllUsers()));
+        return Ok(DbManager.AllUsers());
     }
 
     [ReqLoggedOut]
     [HttpPost("login")]
     public IActionResult Login(UserAll user)
     {
-        if (DbManager.IsUser(Mapper.Map<User>(user)))
+        if (DbManager.IsUser(user))
         {
             Response.Cookies.Append(userNameCookie, user.UserName, userNameCookieOpts);
             return Ok();
@@ -41,7 +41,7 @@ public class UserController : BaseController
     {
         try
         {
-            DbManager.AddUser(Mapper.Map<User>(user));
+            DbManager.AddUser(user);
             Response.Cookies.Append(userNameCookie, user.UserName, userNameCookieOpts);
             return Ok();
         }

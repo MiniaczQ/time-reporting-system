@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ApiRequest from '../ApiRequest';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/UserContext';
 
 export default function Navbar() {
     const userState = useContext(UserContext);
@@ -15,14 +15,11 @@ export default function Navbar() {
             <Link className="nav-link" to="#">Logged in as {userState.state}.</Link>
         </li>
         <li className="nav-item">
-            <Link className="nav-link" to="/user">User</Link>
-        </li>
-        <li className="nav-item">
             <Link className="nav-link" to="/" onClick={() => logout()}>Logout</Link>
         </li>
     </>) : (<>
         <li className="nav-item">
-            <Link className="nav-link" to="/login">Login</Link>
+            <Link className="nav-link" to="/login">Log in</Link>
         </li>
         <li className="nav-item">
             <Link className="nav-link" to="/register">Register</Link>

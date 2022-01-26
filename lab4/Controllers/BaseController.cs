@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using lab4.ActionFilters;
 
 using lab4.Utility;
+using lab4.Models;
 
 namespace lab4.Controllers
 {
@@ -16,11 +17,11 @@ namespace lab4.Controllers
         protected readonly DbManager DbManager;
         protected readonly IMapper Mapper;
         protected static string userNameCookie = "username";
-        protected static CookieOptions userNameCookieOpts = new CookieOptions { HttpOnly = true, MaxAge = TimeSpan.FromMinutes(15) };
-        protected User LoggedInUser;
+        protected static CookieOptions userNameCookieOpts = new CookieOptions { HttpOnly = true, MaxAge = TimeSpan.FromDays(30) };
+        protected UserAll LoggedInUser;
         protected BaseController(IMapper mapper)
         {
-            DbManager = new DbManager();
+            DbManager = new DbManager(mapper);
             Mapper = mapper;
         }
 
@@ -30,7 +31,7 @@ namespace lab4.Controllers
 
             if (Request.Cookies.TryGetValue(userNameCookie, out string userName))
             {
-                LoggedInUser = DbManager.GetUser(userName);
+                LoggedInUser = Mapper.Map<UserAll>(DbManager.GetUser(userName));
                 Response.Cookies.Append(userNameCookie, userName, userNameCookieOpts);
             }
             else

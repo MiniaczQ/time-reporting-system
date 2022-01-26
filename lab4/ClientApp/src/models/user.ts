@@ -1,5 +1,3 @@
-type User = {
+export type UserAll = {
     userName: string;
 };
-
-export default User;
