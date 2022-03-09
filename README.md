@@ -1,9 +1,10 @@
-# NTR21Z-Motyka-Jakub
+# Time Reporting System
+by Jakub Motyka
 
-Zadania 1-4 na przedmiot NTR w semestrze zimowym 2021 - 2022.
+Made for a college assignment in 4 stages.
+1. MVC, JSON database
+2. MVC, MySQL database
+3. MVC, MySQL database and simple concurrency
+4. Majority in React, back-end in .NET Core
 
-Dokładna instrukcja uruchomienia laboratorium 4 znajduje się w folderze `lab4`.
-
-Jakub Motyka
-
-Nr albumu 304078
+Version 4 is the most refined version, it also contains all the launch instructions.
