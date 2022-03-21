@@ -7,4 +7,4 @@ Made for a college assignment in 4 stages.
 3. MVC, MySQL database and simple concurrency
 4. Majority in React, back-end in .NET Core
 
-Version 4 is the most refined version, it also contains all the launch instructions.
+Version 4 is the most refined version (although missing part of the functionality), it also contains all the launch instructions.
